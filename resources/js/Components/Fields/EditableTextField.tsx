@@ -5,6 +5,7 @@ import {Pencil} from "lucide-react";
     The editableTextField is a component that shows text which is a prop that can be given.
     The text is editable which means that it can be changed by clicking on it.
     When editted a onSave event is emitted that can be used by its parent for further processing.
+    TODO add a function to shorten the taskName. Name could look like this: This is very look taskn...
  */
 
 
