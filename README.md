@@ -23,6 +23,10 @@ An overlay for the task has been made but in eary development.
 
 There is no support for mobile devices for now. This will be implemented soon.
 
+To have a look at the current state it is available <a href="https://vibrant-napier.85-215-68-138.plesk.page/login">Here</a>
+Demo User: nick@home.nl
+Password: password
+
 <strong>Future:</strong>
 Lots of big ideas. But none of them are completly worked out yet.
 But we are planning in creating a mobile app. Which will help to get all information on a mobile device in an easy way. 
