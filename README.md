@@ -24,7 +24,9 @@ An overlay for the task has been made but in eary development.
 There is no support for mobile devices for now. This will be implemented soon.
 
 To have a look at the current state it is available <a href="https://vibrant-napier.85-215-68-138.plesk.page/login">Here</a>
+<br>
 Demo User: nick@home.nl
+<br>
 Password: password
 
 <strong>Future:</strong>
