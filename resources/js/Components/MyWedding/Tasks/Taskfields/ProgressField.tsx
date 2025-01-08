@@ -1,12 +1,9 @@
 import React, {useEffect} from 'react';
 import {useTaskContext} from "@/Contexts/Tasks/TaskContext";
 import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCell";
-import {format} from "date-fns";
 import {Progress} from "@/Components/ui/progress";
 import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
-import {Input} from "@/Components/ui/input";
 import {Slider} from "@/Components/ui/slider";
-import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 
@@ -17,14 +14,6 @@ function ProgressField() {
     const taskDatabase = useTaskDatabase();
     const [progress, setProgress] = React.useState(taskContext.states.task.progress);
     const [openPopover, setOpenPopover] = React.useState(false);
-
-
-    const handleEnterPress = (event: React.KeyboardEvent) => {
-        if (event.key === "Enter"){
-            setOpenPopover(false);
-        }
-    }
-
 
     return (
         <TableContentCell>
