@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Pencil} from "lucide-react";
+import {textEllipsis} from "@/lib/text-manipulation";
 
 /*
     The editableTextField is a component that shows text which is a prop that can be given.
@@ -58,9 +59,9 @@ const EditableTextField: React.FC<EditableFieldProps> = ({value, directFocus = f
                     className="group/edit w-full h-full flex items-center cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                     {clickable ? (
-                        <p className={'hover:underline'} onClick={() => onClick()}>{value}</p>
+                        <p className={'hover:underline'} onClick={() => onClick()}>{textEllipsis(value, 35)}</p>
                     ):(
-                        <p className={''} onClick={() => onClick()}>{value}</p>
+                        <p className={''} onClick={() => onClick()}>{textEllipsis(value, 10)}</p>
 
                     )}
 
