@@ -10,6 +10,8 @@ function StatusField({value, onChange}: TaskFieldProps) {
     const [shouldUpdateTask, setShouldUpdateTask] = React.useState(false);
     const [openStatusDropdown, setOpenStatusDropdown] = React.useState(false);
 
+    console.log(taskContext)
+
     const statusses = [
         {name: 'todo', title:'To Do', color: "red"},
         {name: 'planned', title:'Planned', color: "yellow"},
@@ -44,8 +46,7 @@ function StatusField({value, onChange}: TaskFieldProps) {
 
     return (
         <Popover open={openStatusDropdown} onOpenChange={setOpenStatusDropdown}>
-            <PopoverTrigger asChild>
-
+            <PopoverTrigger className="h-full">
                 <div className="w-full h-full py-0.5 flex items-center cursor-pointer">
                     <TableContentCell>
                         <TaskStatus status={selectedStatus}/>

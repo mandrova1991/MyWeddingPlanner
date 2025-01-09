@@ -22,7 +22,7 @@ function PriorityField({value, onChange}: TaskFieldProps) {
     return (
         <div className="">
             <Popover open={openPopover} onOpenChange={setOpenPopover}>
-                <PopoverTrigger asChild={true} >
+                <PopoverTrigger  className="h-full" >
                     <div>
                         <TableContentCell>
                             <PriorityFlag flag={value} />

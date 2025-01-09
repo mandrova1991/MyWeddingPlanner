@@ -28,7 +28,7 @@ function DateField({value, onChange}: TaskFieldProps) {
     return (
         <TableContentCell>
             <Popover>
-                <PopoverTrigger asChild>
+                <PopoverTrigger className="h-full">
                     <div className="w-full h-full flex items-center cursor-pointer text-sm">
                         {/*{date && (*/}
                         {/*    <p className="text-sm">{date}</p>*/}

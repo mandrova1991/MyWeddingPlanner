@@ -95,7 +95,7 @@ function AssigneeField({value, onChange}: TaskFieldProps) {
         <TableContentCell>
             <div className="cursor-pointer w-full">
                 <Popover>
-                    <PopoverTrigger className="w-full flex items-center" asChild>
+                    <PopoverTrigger className="w-full flex items-center h-full">
                         <div>
                             {Object.values(selectedUsers).length != 0 && (
                                 <TooltipProvider>

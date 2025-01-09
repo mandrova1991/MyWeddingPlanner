@@ -13,7 +13,7 @@ function ProgressField({value, onChange}: TaskFieldProps) {
     return (
         <TableContentCell>
             <Popover open={openPopover} onOpenChange={setOpenPopover}>
-                <PopoverTrigger asChild={true} >
+                <PopoverTrigger className="h-full w-full" >
                     <Progress value={progress} className='[&>*]:bg-blue-700 border'/>
                 </PopoverTrigger>
                 <PopoverContent className={'w-52'}>
