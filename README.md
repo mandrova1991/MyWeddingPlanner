@@ -19,7 +19,7 @@ The stack consists of Laravel 11, React 18 and TailwindCSS. For ui shadCN is use
 <strong>Currentstate:</strong>
 As of right now we are working on the TaskSystem. Tasks can be Created, Updated and deleted in or from its category. 
 Categories can be created updated and deleted. Various informatie is already implemented and gets updated.
-An overlay for the task has been made but in eary development. 
+An overlay for the task has been made but in early development. 
 
 There is no support for mobile devices for now. This will be implemented soon.
 
