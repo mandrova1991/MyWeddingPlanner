@@ -29,6 +29,9 @@ Demo User: nick@home.nl
 <br>
 Password: password
 
+<br><br>
+Please select Tasks in the MyWedding menu in order to see the tasklist. It is a demo so feel free to add change and delete things.
+
 <strong>Future:</strong>
 Lots of big ideas. But none of them are completly worked out yet.
 But we are planning in creating a mobile app. Which will help to get all information on a mobile device in an easy way. 
