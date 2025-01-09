@@ -37,4 +37,4 @@ Lots of big ideas. But none of them are completly worked out yet.
 But we are planning in creating a mobile app. Which will help to get all information on a mobile device in an easy way. 
 We would like to make things available offline aswell when we are working on the app.
 
-Feel free to reachout via <a href="mailto:nick@verbeekaudiosolutions.nl">mailto:nick@verbeekaudiosolutions.nl</a> if you have any questions or feature requests. A nice 'Hi'is also appreciated.
+Feel free to reachout via <a href="mailto:nick@verbeekaudiosolutions.nl">nick@verbeekaudiosolutions.nl</a> if you have any questions or feature requests. A nice 'Hi'is also appreciated.
