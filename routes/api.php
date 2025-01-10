@@ -20,6 +20,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // All Task related Routes
     Route::get('{wedding}/tasks', [TasksController::class, 'index'])->name('tasks.index');
+    Route::get('{wedding}/tasks/{task}', [TasksController::class, 'show'])->name('tasks.show');
     Route::post('{wedding}/tasks/create', [TasksController::class, 'store'])->name('tasks.store');
     Route::put('{wedding}/tasks/update/{task}', [TasksController::class, 'update'])->name('tasks.update');
     Route::delete('{wedding}/tasks/destroy/{task}', [TasksController::class, 'destroy'])->name('tasks.destroy');

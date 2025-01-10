@@ -51,7 +51,7 @@ const Task = React.memo(({taskData, columns}: { taskData: TaskType, columns: Col
                 })}
             </div>
 
-            <TaskDialog/>
+            {/*<TaskDialog/>*/}
         </TaskContextProvider>
     )
 })

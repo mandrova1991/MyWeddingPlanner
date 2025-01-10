@@ -15,6 +15,7 @@ export type useTaskDatabaseReturnType = {
         createTask: (task: TaskType) => Promise<TaskType>,
         updateTask: (task: TaskType) => void,
         deleteTask: (taskId: number) => void,
+        getTask: (taskId: number) => Promise<TaskType>,
     },
 }
 
@@ -50,12 +51,18 @@ export const useTaskDatabase = (): useTaskDatabaseReturnType => {
 
     }
 
+    const getTask = async (taskID: number) => {
+        const response = await api.get(route('tasks.show', {wedding: wedding.id, task: taskID}));
+        return response.data.objectData as TaskType;
+    }
+
 
     return {
         actions: {
             createTask,
             updateTask,
             deleteTask,
+            getTask
         },
     }
 }

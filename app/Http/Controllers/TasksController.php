@@ -78,11 +78,13 @@ class TasksController extends Controller
         );
     }
 
-    public function show(Tasks $task)
+    public function show(Wedding $wedding, Tasks $task)
     {
+
+
         return ServerResponse::basicResponse(
             'Task found',
-            $task
+            Tasks::with(['subtasks', 'assignees'])->find($task->id),
         );
     }
 
