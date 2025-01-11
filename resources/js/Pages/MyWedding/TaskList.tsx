@@ -7,6 +7,18 @@ import {TaskCategoryType} from "@/types/Tasks/TaskCategory";
 import TaskToolbar from "@/Components/MyWedding/Tasks/Overlay/TaskToolbar";
 import TaskListContent from "@/Components/MyWedding/TaskList";
 import TaskListProviders from "@/Components/MyWedding/Tasks/Providers/TaskListProviders";
+import GripIconField from "@/Components/MyWedding/Tasks/Taskfields/GripIconField";
+import CheckboxField from "@/Components/MyWedding/Tasks/Taskfields/CheckboxField";
+import TaskNameField from "@/Components/MyWedding/Tasks/Taskfields/TaskNameField";
+import AssigneeField from "@/Components/MyWedding/Tasks/Taskfields/AssigneeField";
+import DateField from "@/Components/MyWedding/Tasks/Taskfields/DateField";
+import StatusField from "@/Components/MyWedding/Tasks/Taskfields/StatusField";
+import PriorityField from "@/Components/MyWedding/Tasks/Taskfields/PriorityField";
+import ProgressField from "@/Components/MyWedding/Tasks/Taskfields/ProgressField";
+import CreatedByField from "@/Components/MyWedding/Tasks/Taskfields/CreatedByField";
+import UpdatedByField from "@/Components/MyWedding/Tasks/Taskfields/UpdatedByField";
+import createdAtField from "@/Components/MyWedding/Tasks/Taskfields/CreatedAtField";
+import UpdatedAtField from "@/Components/MyWedding/Tasks/Taskfields/UpdatedAtField";
 
 function TaskList() {
     const {tasks, task_categories} = usePage().props;
@@ -28,7 +40,8 @@ function TaskList() {
             isInputField: false,
             canBeHidden: false,
             canResize: false,
-            sortable: false
+            sortable: false,
+            component: GripIconField,
         },
         checkBox: {
             minWidth: 30,
@@ -40,7 +53,9 @@ function TaskList() {
             isInputField: false,
             canBeHidden: false,
             canResize: false,
-            sortable: false
+            sortable: false,
+            component: CheckboxField,
+
         },
         taskTitle: {
             minWidth: 350,
@@ -52,7 +67,9 @@ function TaskList() {
             isInputField: true,
             canBeHidden: false,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: TaskNameField,
+
         },
         assignee: {
             minWidth: 120,
@@ -64,7 +81,9 @@ function TaskList() {
             isInputField: true,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: AssigneeField,
+
         },
         dueDate: {
             minWidth: 200,
@@ -76,7 +95,8 @@ function TaskList() {
             isInputField: true,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: DateField,
         },
         status: {
             minWidth: 220,
@@ -88,7 +108,8 @@ function TaskList() {
             isInputField: true,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: StatusField,
         },
         priority: {
             minWidth: 180,
@@ -100,7 +121,8 @@ function TaskList() {
             isInputField: true,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: PriorityField,
         },
         progress: {
             minWidth: 120,
@@ -112,7 +134,8 @@ function TaskList() {
             isInputField: true,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: ProgressField,
         },
         createdBy: {
             minWidth: 120,
@@ -124,7 +147,8 @@ function TaskList() {
             isInputField: false,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: CreatedByField,
         },
         updatedBy: {
             minWidth: 120,
@@ -136,7 +160,8 @@ function TaskList() {
             isInputField: false,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: UpdatedByField,
         },
         createdAt: {
             minWidth: 200,
@@ -148,7 +173,8 @@ function TaskList() {
             isInputField: false,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: createdAtField,
         },
         updatedAt: {
             minWidth: 200,
@@ -160,7 +186,8 @@ function TaskList() {
             isInputField: false,
             canBeHidden: true,
             canResize: true,
-            sortable: false
+            sortable: false,
+            component: UpdatedAtField,
         },
     });
 
