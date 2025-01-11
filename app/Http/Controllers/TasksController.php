@@ -32,7 +32,7 @@ class TasksController extends Controller
                 'title' => ['required', 'string'],
                 'description' => ['string', 'nullable'],
                 'status' => ['required', 'string'],
-                'category_id' => ['required','integer'],
+                'category_id' => ['required', 'integer'],
                 'order' => ['required', 'integer'],
                 'due_date' => ['date', 'nullable'],
                 'parent_task' => ['numeric', 'nullable'],
@@ -52,7 +52,6 @@ class TasksController extends Controller
                 $request->all()
             );
         }
-
 
 
         // Get wedding and the users role in the wedding
@@ -97,7 +96,7 @@ class TasksController extends Controller
                 'title' => ['required', 'string'],
                 'description' => ['string', 'nullable'],
                 'status' => ['required', 'string'],
-                'category_id' => ['required','integer'],
+                'category_id' => ['required', 'integer'],
                 'order' => ['required', 'integer'],
                 'due_date' => ['date', 'nullable'],
                 'parent_task' => ['numeric', 'nullable'],
@@ -133,23 +132,24 @@ class TasksController extends Controller
                 ->pluck('user_id')
                 ->toArray();
 
-            if ($currentAssignees){
-                $toAdd = array_diff($assignees, $currentAssignees);
-                $toRemove = array_diff($currentAssignees, $assignees);
+            $toAdd = array_diff($assignees, $currentAssignees);
+            $toRemove = array_diff($currentAssignees, $assignees);
 
+            if ($toRemove){
                 TaskAssignee::where('tasks_id', $task->id)
                     ->whereIn('user_id', $toRemove)
                     ->delete();
+            }
 
-                if ($toAdd) {
-                    foreach ($toAdd as $userId) {
-                        TaskAssignee::create([
-                            'user_id' => $userId,
-                            'tasks_id' => $task->id,
-                        ]);
-                    }
+            if ($toAdd) {
+                foreach ($toAdd as $userId) {
+                    TaskAssignee::create([
+                        'user_id' => $userId,
+                        'tasks_id' => $task->id,
+                    ]);
                 }
             }
+
         } // Send error when there is an issues within the validation process
         catch (\Illuminate\Validation\ValidationException $e) {
             return ServerResponse::errorResponse(
