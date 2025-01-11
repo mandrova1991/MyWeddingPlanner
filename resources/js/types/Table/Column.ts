@@ -1,4 +1,5 @@
 import {b} from "vite/dist/node/types.d-aGj9QkWt";
+import React, {JSX} from "react";
 
 type ColumnFieldType =
     | "gripIconField"
@@ -26,6 +27,7 @@ export interface ColumnConfig {
     canBeHidden: boolean;
     canResize: boolean;
     sortable: boolean;
+    component: React.ComponentType<T>;
 }
 
 export type ColumnConfigMap = {
