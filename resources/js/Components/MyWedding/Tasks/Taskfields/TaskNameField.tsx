@@ -4,8 +4,6 @@ import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCel
 import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 import {useTaskContext} from "@/Contexts/Tasks/TaskContext";
 
-// TODO Cleanup after refactoring
-
 const TaskNameField = ({value, onChange}: TaskFieldProps) => {
     const taskContext = useTaskContext();
 
