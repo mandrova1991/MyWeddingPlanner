@@ -1,14 +1,15 @@
 import {twMerge} from "tailwind-merge";
 import CellRenderer from "@/Components/MyWedding/Tasks/Helpers/CellRenderer";
 import React from "react";
+import {ColumnConfig} from "@/types/Table/Column";
 
 /*
-    the taskCell only renders when the columnSetting visible is true.
-    It uses the cellRenderer to render to correct TaskField.
+    The taskCell only renders when the columnSetting visible is true.
+    It is used to do styling based on its column configuration.
     Note: the name of the div is the same as its columnHeader. This is needed to set its width
  */
 
-function TaskCell({value, columnConfig}: { value: any, columnConfig: ColumnConfig }) {
+function TaskCell({columnConfig, children}: { columnConfig: ColumnConfig, children: React.ReactNode}) {
     const columnStyle = {minWidth: `${columnConfig.minWidth}px`};
     const inputFieldCSS = columnConfig.isInputField ? "border border-transparent hover:border-gray-300 rounded" : "";
     const divName = `resizable-${columnConfig.type}`;
@@ -17,7 +18,7 @@ function TaskCell({value, columnConfig}: { value: any, columnConfig: ColumnConfi
         <>
             {columnConfig.visible && (
                 <div className={twMerge(`${divName} flex items-center h-full`, inputFieldCSS)} style={columnStyle}>
-                    <CellRenderer type={columnConfig.type} value={value}/>
+                    {children}
                 </div>
             )}
         </>

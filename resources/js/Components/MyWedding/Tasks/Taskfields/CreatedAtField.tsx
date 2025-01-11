@@ -1,12 +1,10 @@
 import React from 'react';
-import {useTask} from "@/hooks/use-task";
-import {useTaskContext} from "@/Contexts/Tasks/TaskContext";
 import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCell";
 import {format} from "date-fns";
+import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
-function CreatedAtField() {
-    const taskContext = useTaskContext();
-    const date = new Date(taskContext.states.task.created_at);
+function CreatedAtField({value}: TaskFieldProps) {
+    const date = new Date(value);
 
     return (
         <TableContentCell>

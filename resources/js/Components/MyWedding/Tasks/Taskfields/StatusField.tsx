@@ -3,19 +3,12 @@ import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCel
 import TaskStatus from "@/Components/MyWedding/Tasks/Models/TaskStatus";
 import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
 import TaskStatusDropdownContent from "@/Components/MyWedding/Tasks/Dropdowns/TaskStatusDropdownContent";
-import {TaskContext} from "@/Components/MyWedding/Tasks/Task";
-import {useTaskContext} from "@/Contexts/Tasks/TaskContext";
-import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
-import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
-import {useTaskDatabase} from "@/hooks/Database/use-task-database";
+import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
-function StatusField({status}: {status: object[]}) {
-    const [selectedStatus, setSelectedStatus] = React.useState(status);
+function StatusField({value, onChange}: TaskFieldProps) {
+    const [selectedStatus, setSelectedStatus] = React.useState(value);
     const [shouldUpdateTask, setShouldUpdateTask] = React.useState(false);
     const [openStatusDropdown, setOpenStatusDropdown] = React.useState(false);
-    const taskContext = useTaskContext();
-    const {updateTask} = useTaskManagerFunctionContext();
-    const taskDatabase = useTaskDatabase();
 
     const statusses = [
         {name: 'todo', title:'To Do', color: "red"},
@@ -29,15 +22,13 @@ function StatusField({status}: {status: object[]}) {
             return array.find((item: any) => item[key] === value);
         }
 
-        const result = findByKey(statusses, 'name', status);
+        const result = findByKey(statusses, 'name', value);
         setSelectedStatus(result);
     }, []);
 
     useEffect(() => {
         if (shouldUpdateTask){
-            const updatedTask = {...taskContext.states.task, status: selectedStatus.name};
-            updateTask(taskContext.states.task.category_id, taskContext.states.task.id, 'status', selectedStatus);
-            taskDatabase.actions.updateTask(updatedTask);
+            onChange('status', selectedStatus.name ?? 'todo');
             setShouldUpdateTask(false);
         }
     }, [selectedStatus]);

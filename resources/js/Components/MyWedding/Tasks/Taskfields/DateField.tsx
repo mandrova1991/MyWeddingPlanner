@@ -1,21 +1,14 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {CalendarPlus} from "lucide-react";
 import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
 import {Calendar} from "@/Components/ui/calendar";
 import {format} from "date-fns";
 import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCell";
-import {TaskContext} from "@/Components/MyWedding/Tasks/Task";
-import {useTaskContext} from "@/Contexts/Tasks/TaskContext";
-import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
-import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
-import {useTaskDatabase} from "@/hooks/Database/use-task-database";
+import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
-function DateField({value}: { value: string | null }) {
-    const taskContext = useTaskContext();
-    const [date, setDate] = React.useState<Date>(taskContext.states.task.due_date);
+function DateField({value, onChange}: TaskFieldProps) {
+    const [date, setDate] = React.useState<Date>(value);
     const [shouldUpdateTask, setShouldUpdateTask] = React.useState(false);
-    const {updateTask} = useTaskManagerFunctionContext();
-    const taskDatabase = useTaskDatabase();
 
 
     const handleChange = (newValue: Date) => {
@@ -25,11 +18,7 @@ function DateField({value}: { value: string | null }) {
 
     useEffect(() => {
         if (shouldUpdateTask) {
-            // taskContext.handlers.updateTaskField('due_date', date);
-            const updatedTask = {...taskContext.states.task, due_date: date};
-            updateTask(taskContext.states.task.category_id, taskContext.states.task.id, 'due_date', date);
-            taskDatabase.actions.updateTask(updatedTask);
-
+            onChange('due_date', date);
             setShouldUpdateTask(false);
         }
 

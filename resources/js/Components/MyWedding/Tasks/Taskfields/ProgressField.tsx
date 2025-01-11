@@ -1,18 +1,13 @@
 import React, {useEffect} from 'react';
-import {useTaskContext} from "@/Contexts/Tasks/TaskContext";
 import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCell";
 import {Progress} from "@/Components/ui/progress";
 import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
 import {Slider} from "@/Components/ui/slider";
-import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
-import {useTaskDatabase} from "@/hooks/Database/use-task-database";
+import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
 // TODO Implement update task functions.
-function ProgressField() {
-    const taskContext = useTaskContext();
-    const {updateTask} = useTaskManagerFunctionContext();
-    const taskDatabase = useTaskDatabase();
-    const [progress, setProgress] = React.useState(taskContext.states.task.progress);
+function ProgressField({value, onChange}: TaskFieldProps) {
+    const [progress, setProgress] = React.useState(value);
     const [openPopover, setOpenPopover] = React.useState(false);
 
     return (

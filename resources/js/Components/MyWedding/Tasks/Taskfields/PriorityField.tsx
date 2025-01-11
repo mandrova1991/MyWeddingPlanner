@@ -1,11 +1,8 @@
 import React from 'react';
-import {useTaskContext} from "@/Contexts/Tasks/TaskContext";
 import {twMerge} from "tailwind-merge";
 import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCell";
 import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
-import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
-import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
-import {useTaskDatabase} from "@/hooks/Database/use-task-database";
+import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
 const priorities = [
     {flag: "none", bgColor: "bg-gray-200"},
@@ -14,18 +11,12 @@ const priorities = [
     {flag: "high", bgColor: "bg-red-500"},
 ];
 
-function PriorityField() {
-    const taskContext = useTaskContext();
-    const {updateTask} = useTaskManagerFunctionContext();
-    const taskDatabase = useTaskDatabase();
+function PriorityField({value, onChange}: TaskFieldProps) {
     const [openPopover, setOpenPopover] = React.useState<boolean>(false);
 
     const handlePriorityChange = (newValue: string) => {
-        setOpenPopover(false)
-        // taskContext.handlers.updateTaskField('priority', newValue);
-        const updatedTask = {...taskContext.states.task, priority: newValue};
-        updateTask(taskContext.states.task.category_id, taskContext.states.task.id, 'priority', newValue);
-        taskDatabase.actions.updateTask(updatedTask);
+        setOpenPopover(false);
+        onChange('priority', newValue);
     }
 
     return (
@@ -34,7 +25,7 @@ function PriorityField() {
                 <PopoverTrigger asChild={true} >
                     <div>
                         <TableContentCell>
-                            <PriorityFlag flag={taskContext.states.task.priority} />
+                            <PriorityFlag flag={value} />
                         </TableContentCell>
                     </div>
                 </PopoverTrigger>

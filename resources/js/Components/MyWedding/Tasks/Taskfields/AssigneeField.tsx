@@ -11,13 +11,14 @@ import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctio
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
 import {TaskType} from "@/types/Tasks/Task";
+import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
 /*
     The assigneefield is used to assigne users to tasks.
     It is possible to assign multiple users to one task. They are shown as their avatar.
     The user list is taken from the weddings know users. The users are shown in a list.
     Assigned user are shown above this list. When a user is assigned as assignee the user willen be removed from the wedding users list.
-    They will be added back when they are remove as assignee aswel.
+    They will be added back when they are remove as assignee aswell.
  */
 
 type Assignee = {
@@ -26,23 +27,20 @@ type Assignee = {
     tasks_id: number
 }
 
-function AssigneeField({assignees}: { assignees: any }) {
+function AssigneeField({value, onChange}: TaskFieldProps) {
     const [selectedUsers, setSelectedUsers] = React.useState<User[]>([]);
     const [shouldUpdate, setShouldUpdate] = React.useState(false);
     const [users, setUsers] = React.useState<User[]>([]);
-    const taskContext = useTaskContext();
     const initialUsers = usePage().props.users as User[];
-    const {updateTask} = useTaskManagerFunctionContext();
-    const taskDatabase = useTaskDatabase();
 
     // prepare users from pageProps and remove users that are already assigned to the task
     useEffect(() => {
         const filteredUsers = initialUsers.filter(
-            (user) => !Object.values(taskContext.states.task.assignees as Assignee[]).some((assignee) => assignee.user_id === user.id)
+            (user) => !Object.values(value as Assignee[]).some((assignee) => assignee.user_id === user.id)
         );
 
         const selectedUsers = initialUsers.filter(
-            (user) => Object.values(taskContext.states.task.assignees as Assignee[]).some((assignee) => assignee.user_id === user.id)
+            (user) => Object.values(value as Assignee[]).some((assignee) => assignee.user_id === user.id)
         );
 
         setUsers(filteredUsers.sort((a, b) => a.name.localeCompare(b.name)));
@@ -63,8 +61,6 @@ function AssigneeField({assignees}: { assignees: any }) {
         const newUsers = [...selectedUsers, user].sort((a, b) => a.name.localeCompare(b.name));
         setSelectedUsers(newUsers);
         removeAssigneeFromUsers(user);
-        // updateTask(newUsers);
-
     };
 
     // removes a user from the assignee list
@@ -75,14 +71,11 @@ function AssigneeField({assignees}: { assignees: any }) {
             .sort((a, b) => a.name.localeCompare(b.name));
         setSelectedUsers(newUsers);
         addUserToUsers(user);
-        // updateTask(newUsers);
     };
 
     // update the task with the new assignees
     function updateTaskWithUpdatedAssignees(assignees: User[]) {
-        const updatedTask: TaskType = {...taskContext.states.task, assignees: assignees};
-        updateTask(taskContext.states.task.category_id, taskContext.states.task.id, "assignees", assignees);
-        taskDatabase.actions.updateTask(updatedTask);
+        onChange('assignees', assignees);
     }
 
     // remove a user from the users list. when its add as assignee.

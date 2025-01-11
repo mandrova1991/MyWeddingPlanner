@@ -1,6 +1,7 @@
 import React from 'react';
+import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
-function CreatedByField(props) {
+function CreatedByField({}:TaskFieldProps) {
     return (
         <div></div>
     );
