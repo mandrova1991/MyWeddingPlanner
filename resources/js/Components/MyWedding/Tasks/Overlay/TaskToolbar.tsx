@@ -6,8 +6,6 @@ import task from "@/Components/MyWedding/Tasks/Task";
 function TaskToolbar() {
     const toolbar = useTaskToolbarContext();
 
-    // toolbar.handlers.setToolBarOpened(true);
-
     const handleDeleteOnClick = () => {
         toolbar.handlers.handleDeleteTask(); // Delete selected Tasks
     }

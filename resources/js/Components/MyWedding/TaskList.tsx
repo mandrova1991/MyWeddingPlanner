@@ -18,7 +18,7 @@ import {useFilterContext} from "@/Contexts/Tasks/FilterContext";
      Otherwise it tries to render the categories with only an array of TaskType
  */
 
-function TaskListContent({data, columns, handleConfigChange}: {
+function TaskListContent({columns, handleConfigChange}: {
     data: TaskCategoryType[],
     columns: ColumnConfigMap,
     handleConfigChange: () => void
@@ -38,11 +38,9 @@ function TaskListContent({data, columns, handleConfigChange}: {
             <div className={'overflow-auto px-4'} style={{height: 'calc(100vh - 8rem)'}}>
                 {filteredTaskList.length !== 0 && filteredTaskList[0].hasOwnProperty('tasks') && (
                     <div key={"categoryList"} className={'task-list-categories'}>
-                        {filterContext.states.filteredTaskList && Object.values(filterContext.states.filteredTaskList).map((taskCategory, index) => (
-                            // <TaskCategoryContextProvider key={taskCategory.id} initialTaskCategory={taskCategory}>
+                        {filterContext.states.filteredTaskList && Object.values(filterContext.states.filteredTaskList).map((taskCategory) => (
                             <TaskCategory key={"cat" + taskCategory.id} data={taskCategory} columns={columns}
                                           handleConfigChange={handleConfigChange}/>
-                            // </TaskCategoryContextProvider>
                         ))}
 
 
@@ -54,11 +52,9 @@ function TaskListContent({data, columns, handleConfigChange}: {
 
                     <div key={"taskList"} className="mt-4">
                         <TableHeader columns={columns}/>
-                        {Object.values(filterContext.states.filteredTaskList).map((task, index) => {
+                        {Object.values(filterContext.states.filteredTaskList).map((task) => {
                             return (
-                                // <TaskContextProvider key={task.id} initialTask={task}>
                                 <Task key={task.id} taskData={task} columns={columns}/>
-                                // </TaskContextProvider>
                             )
 
                         })}

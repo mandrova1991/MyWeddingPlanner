@@ -3,10 +3,10 @@ import TableHeader from "@/Components/MyWedding/Tasks/Table/TableHeader";
 import NewTaskRow from "@/Components/MyWedding/Tasks/NewTaskRow";
 import Task from "@/Components/MyWedding/Tasks/Task";
 import {TaskCategoryType} from "@/types/Tasks/TaskCategory";
-import {TaskCategoryContextProvider, useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
+import {TaskCategoryContextProvider} from "@/Contexts/Tasks/TaskCategoryContext";
 import {ColumnConfigMap} from "@/types/Table/Column";
-import {SquareChevronDown, SquareChevronRight, Trash, Trash2} from "lucide-react";
-import {Collapsible, CollapsibleContent, CollapsibleTrigger} from "@/Components/ui/collapsible";
+import {SquareChevronDown, SquareChevronRight} from "lucide-react";
+import {Collapsible, CollapsibleContent} from "@/Components/ui/collapsible";
 import TaskCategoryMenuDropdown from "@/Components/MyWedding/Tasks/Dropdowns/TaskCategoryMenuDropdown";
 
 
@@ -59,7 +59,7 @@ const TaskCategory = React.memo(({data, columns, handleConfigChange}: {
                     <Collapsible open={collapsed} onOpenChange={setCollapsed}>
                         <CollapsibleContent>
                             <TableHeader columns={columns}/>
-                            {memmorizedTaskCategory.tasks && Object.values(memmorizedTaskCategory.tasks).map((rowData, index) => (
+                            {memmorizedTaskCategory.tasks && Object.values(memmorizedTaskCategory.tasks).map((rowData) => (
                                 <Task key={rowData.id} taskData={rowData} columns={columns}/>
                             ))}
                             <NewTaskRow columns={columns}/>

@@ -40,9 +40,7 @@ const EditableTextField: React.FC<EditableFieldProps> = ({value, directFocus = f
                     ref={inputRef}
                     type="text"
                     defaultValue={value}
-                    // value={currentValue}
                     className="p-0 w-full h-full focus:border-0 focus-visible:ring-0 text-sm flex items-center font-medium"
-                    // onChange={(e) => setCurrentValue(e.target.value)}
                     onBlur={(e) => handleSave(e.target.value)} // Save when losing focus
                     onKeyDown={(e) => {
                         if (e.key === "Enter") handleSave(e.currentTarget.value); // Save on Enter key

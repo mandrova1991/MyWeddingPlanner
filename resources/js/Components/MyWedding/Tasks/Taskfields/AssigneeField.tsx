@@ -5,12 +5,7 @@ import {usePage} from "@inertiajs/react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/Components/ui/avatar";
 import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/Components/ui/tooltip";
-import {useTaskContext} from "@/Contexts/Tasks/TaskContext";
 import {User} from "@/types";
-import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
-import {useTaskDatabase} from "@/hooks/Database/use-task-database";
-import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
-import {TaskType} from "@/types/Tasks/Task";
 import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
 /*
