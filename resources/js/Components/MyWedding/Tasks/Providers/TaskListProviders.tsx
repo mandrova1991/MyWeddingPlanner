@@ -16,9 +16,9 @@ function TaskListProviders({data, children}: { data: TaskCategoryType[], childre
             <TaskManagerProvider initialState={data}>
                 <TaskToolbarContextProvider>
                     <TaskManagerFunctionsProvider>
-                        <TaskDialogContextProvider>
+                        {/*<TaskDialogContextProvider>*/}
                             {children}
-                        </TaskDialogContextProvider>
+                        {/*</TaskDialogContextProvider>*/}
                     </TaskManagerFunctionsProvider>
                 </TaskToolbarContextProvider>
             </TaskManagerProvider>

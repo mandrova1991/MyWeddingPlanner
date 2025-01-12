@@ -8,23 +8,37 @@ import StatusField from "@/Components/MyWedding/Tasks/Taskfields/StatusField";
 import {Label} from "@/Components/ui/label";
 import {twMerge} from "tailwind-merge";
 import {useTaskDialogContext} from "@/Contexts/Tasks/TaskDialogContext";
+import {log} from "node:util";
+import {TaskType} from "@/types/Tasks/Task";
+import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
+import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 
-function TaskDialog() {
-    const {task, openTaskDialog, setOpenTaskDialog} = useTaskDialogContext();
+function TaskDialog({ task, taskOpened, setTaskOpened}: {
+    task: TaskType,
+    taskOpened: boolean,
+    setTaskOpened: (value: (((prevState: boolean) => boolean) | boolean)) => void
+}) {
+    // const {task, openTaskDialog, setOpenTaskDialog} = useTaskDialogContext();
+    const {updateTask} = useTaskManagerFunctionContext();
+    const taskDatabase = useTaskDatabase();
     const memorizedTask = useMemo(() => task, [task]);
     const rowClassName = 'h-8 grid grid-cols-2 grid-cols-[130px_1fr] items-center auto-cols-auto';
     const lableClassName = 'mr-2 w-20';
-    // const [openTaskDialog, setOpenTaskDialog] = useState(false);
 
-    // console.log(task)
-    console.log('taskDialog')
+    console.log('Render taskDialog')
+
+    const handleTaskChange = (datakey: string, value: any) => {
+        const updatedTask = { ...memorizedTask, [datakey]: value };
+        updateTask( memorizedTask.category_id, memorizedTask.id, datakey, value );
+        taskDatabase.actions.updateTask(updatedTask);
+    }
 
     return (
         <>
             {memorizedTask && Object.keys(memorizedTask).length > 0 && (
                 <TaskContextProvider initialTask={memorizedTask}>
-                    <Dialog open={openTaskDialog} onOpenChange={setOpenTaskDialog} modal={false}>
-                        {openTaskDialog && (
+                    <Dialog open={taskOpened} onOpenChange={setTaskOpened} modal={false}>
+                        {taskOpened && (
                             <div className="fixed inset-0 bg-black bg-opacity-50 z-40" aria-hidden="true"></div>
                         )}
                         <DialogContent className="min-w-[1000px]" onInteractOutside={(e) => e.preventDefault()} onOpenAutoFocus={(e) => e.preventDefault()}>
@@ -32,19 +46,19 @@ function TaskDialog() {
                             <div className={'w-[500px] grid gap-2 z-50'}>
                                 <div className={twMerge(rowClassName)}>
                                     <Label className={lableClassName}>TaskName:</Label>
-                                    <TaskNameField/>
+                                    <TaskNameField value={memorizedTask.title} onChange={handleTaskChange}/>
                                 </div>
                                 <div className={rowClassName}>
                                     <Label className={lableClassName}>Assignees:</Label>
-                                    <AssigneeField assignees={memorizedTask.assignees}/>
+                                    <AssigneeField value={memorizedTask.assignees} onChange={handleTaskChange}/>
                                 </div>
                                 <div className={rowClassName}>
                                     <Label className={lableClassName}>Due Date:</Label>
-                                    <DateField value={memorizedTask.due_date}/>
+                                    <DateField value={memorizedTask.due_date} onChange={handleTaskChange}/>
                                 </div>
                                 <div className={rowClassName}>
                                     <Label className={lableClassName}>Status:</Label>
-                                    <StatusField status={memorizedTask.status}/>
+                                    <StatusField value={memorizedTask.status} onChange={handleTaskChange}/>
                                 </div>
                             </div>
                         </DialogContent>

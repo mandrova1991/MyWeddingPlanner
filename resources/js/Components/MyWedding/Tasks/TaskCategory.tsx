@@ -24,7 +24,7 @@ const TaskCategory = React.memo(({data, columns, handleConfigChange}: {
     handleConfigChange: Function
 }) => {
     const [collapsed, setCollapsed] = useState(true); // State for setting collpsed or uncollapsed state
-    const memmorizedTaksCategory = useMemo(() => {
+    const memmorizedTaskCategory = useMemo(() => {
         return data
     }, [data]);
 
@@ -35,7 +35,7 @@ const TaskCategory = React.memo(({data, columns, handleConfigChange}: {
     }
 
     return (
-        <TaskCategoryContextProvider initialTaskCategory={memmorizedTaksCategory}>
+        <TaskCategoryContextProvider initialTaskCategory={memmorizedTaskCategory}>
             <TableContext.Provider value={handleColumnWidthChange}>
                 <div className="table p-2 w-full first:mt-0">
                     <div className={'w-fit group h-[45px] py-2 flex items-center'}>
@@ -49,8 +49,8 @@ const TaskCategory = React.memo(({data, columns, handleConfigChange}: {
                                                 onClick={() => setCollapsed(!collapsed)}/>
                         )}
 
-                        <h2 className={'ml-2 font-light text-xl'}>{memmorizedTaksCategory.name}</h2>
-                        <p className={'text-xs ml-3 text-gray-500 italic'}>{memmorizedTaksCategory.tasks.length}</p>
+                        <h2 className={'ml-2 font-light text-xl'}>{memmorizedTaskCategory.name}</h2>
+                        <p className={'text-xs ml-3 text-gray-500 italic'}>{memmorizedTaskCategory.tasks.length}</p>
 
                         <TaskCategoryMenuDropdown/>
 
@@ -59,10 +59,8 @@ const TaskCategory = React.memo(({data, columns, handleConfigChange}: {
                     <Collapsible open={collapsed} onOpenChange={setCollapsed}>
                         <CollapsibleContent>
                             <TableHeader columns={columns}/>
-                            {memmorizedTaksCategory.tasks && Object.values(memmorizedTaksCategory.tasks).map((rowData, index) => (
-                                // <TaskContextProvider key={rowData.id} initialTask={rowData}>
+                            {memmorizedTaskCategory.tasks && Object.values(memmorizedTaskCategory.tasks).map((rowData, index) => (
                                 <Task key={rowData.id} taskData={rowData} columns={columns}/>
-                                // </TaskContextProvider>
                             ))}
                             <NewTaskRow columns={columns}/>
                         </CollapsibleContent>

@@ -127,7 +127,7 @@ class TasksController extends Controller
             $task->update($data);
             $assignees = $request->input('assignees');
             $assignees = array_map(function ($assignee) {
-                return $assignee['id'];
+                return $assignee['user_id'];
             }, $assignees);
 
             $currentAssignees = TaskAssignee::where('tasks_id', $task->id)

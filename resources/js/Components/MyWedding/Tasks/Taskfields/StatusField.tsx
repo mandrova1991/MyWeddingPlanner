@@ -1,16 +1,14 @@
-import React, {useContext, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCell";
 import TaskStatus from "@/Components/MyWedding/Tasks/Models/TaskStatus";
 import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
 import TaskStatusDropdownContent from "@/Components/MyWedding/Tasks/Dropdowns/TaskStatusDropdownContent";
 import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
-function StatusField({value, onChange}: TaskFieldProps) {
+const StatusField = React.memo(({value, onChange}: TaskFieldProps) => {
     const [selectedStatus, setSelectedStatus] = React.useState(value);
     const [shouldUpdateTask, setShouldUpdateTask] = React.useState(false);
     const [openStatusDropdown, setOpenStatusDropdown] = React.useState(false);
-
-    console.log(taskContext)
 
     const statusses = [
         {name: 'todo', title:'To Do', color: "red"},
@@ -26,7 +24,8 @@ function StatusField({value, onChange}: TaskFieldProps) {
 
         const result = findByKey(statusses, 'name', value);
         setSelectedStatus(result);
-    }, []);
+    }, [value]);
+
 
     useEffect(() => {
         if (shouldUpdateTask){
@@ -57,8 +56,7 @@ function StatusField({value, onChange}: TaskFieldProps) {
                 <TaskStatusDropdownContent statussen={statusses} onClick={handleClick} />
             </PopoverContent>
         </Popover>
-
     );
-}
+})
 
 export default StatusField;

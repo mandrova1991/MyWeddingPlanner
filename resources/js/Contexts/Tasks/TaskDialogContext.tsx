@@ -26,6 +26,8 @@ export const TaskDialogContextProvider = React.memo(({children}: { children: Rea
     const [openTaskDialog, setOpenTaskDialog] = React.useState(false);
     const taskDatabase = useTaskDatabase();
 
+    console.log(task)
+
     useEffect(() => {
         const fetchTask = async () => {
             if (taskId !== undefined){

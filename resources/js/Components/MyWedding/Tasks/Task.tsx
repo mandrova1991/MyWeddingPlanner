@@ -1,12 +1,8 @@
-import React, {createContext, useMemo, useState} from "react";
-import {usePage} from "@inertiajs/react";
+import React, {useMemo, useState} from "react";
 import TaskCell from "@/Components/MyWedding/Tasks/TaskCell";
 import {TaskType} from "@/types/Tasks/Task";
-import {TaskContextProvider, useTaskContext} from "@/Contexts/Tasks/TaskContext";
 import TaskDialog from "@/Components/MyWedding/Tasks/Overlay/TaskDialog";
 import {ColumnConfigMap} from "@/types/Table/Column";
-import {log} from "node:util";
-import TextComponent from "@/Components/MyWedding/Tasks/TextComponent";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 
@@ -23,27 +19,39 @@ export interface TaskFieldProps {
 }
 
 const Task = React.memo(({taskData, columns}: { taskData: TaskType, columns: ColumnConfigMap }) => {
+    const [taskOpened, setTaskOpened] = useState(false);
     const memTask = useMemo(() => taskData, [taskData]);
     const {updateTask} = useTaskManagerFunctionContext();
     const taskDatabase = useTaskDatabase();
 
     const handleChange = (datakey: string, value: any) => {
         const updatedTask = { ...memTask, [datakey]: value };
-        console.log(updatedTask);
         updateTask(updatedTask.category_id, updatedTask.id, datakey, value);
         taskDatabase.actions.updateTask(updatedTask);
     }
 
+    const handleTitleClick = () => {
+        setTaskOpened(true);
+    }
+
+    console.log('task', taskData)
+
     return (
-        <TaskContextProvider initialTask={memTask}>
+        <>
             <div className=" group flex items-center border-b border-gray-200 w-fit hover:bg-gray-50">
-                {Object.values(columns).map((column, index) => {
+                {Object.values(columns).map((column) => {
                     const DynamicComponent = column.component;
+                    const key = "cat" + memTask.category_id + memTask.id + '_' + column.type;
 
                     return (
-                        <div key={index} className="task h-[35px]">
+                        <div key={key} className="task h-[35px]">
                             <TaskCell columnConfig={column}>
-                                <DynamicComponent value={memTask[column.dataKey]} onChange={handleChange}/>
+                                <DynamicComponent
+                                    value={memTask[column.dataKey]}
+                                    onChange={handleChange}
+                                    onTitleClick={handleTitleClick}
+                                    taskId={taskData.id}
+                                />
                             </TaskCell>
                         </div>
                     )
@@ -51,9 +59,11 @@ const Task = React.memo(({taskData, columns}: { taskData: TaskType, columns: Col
                 })}
             </div>
 
-            {/*<TaskDialog/>*/}
-        </TaskContextProvider>
+            {taskOpened && (
+                <TaskDialog task={memTask} taskOpened={taskOpened} setTaskOpened={setTaskOpened}/>
+            )}
+        </>
     )
-})
+});
 
 export default Task;

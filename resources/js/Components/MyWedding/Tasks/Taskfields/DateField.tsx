@@ -6,24 +6,10 @@ import {format} from "date-fns";
 import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCell";
 import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
-function DateField({value, onChange}: TaskFieldProps) {
-    const [date, setDate] = React.useState<Date>(value);
-    const [shouldUpdateTask, setShouldUpdateTask] = React.useState(false);
-
-
+function DateField({value: date, onChange}: TaskFieldProps) {
     const handleChange = (newValue: Date) => {
-        setShouldUpdateTask(true);
-        setDate(newValue);
+        onChange('due_date', newValue);
     }
-
-    useEffect(() => {
-        if (shouldUpdateTask) {
-            onChange('due_date', date);
-            setShouldUpdateTask(false);
-        }
-
-    }, [date]);
-
 
     return (
         <TableContentCell>

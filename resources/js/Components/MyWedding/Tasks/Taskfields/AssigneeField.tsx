@@ -27,7 +27,7 @@ type Assignee = {
     tasks_id: number
 }
 
-function AssigneeField({value, onChange}: TaskFieldProps) {
+function AssigneeField({value: currentAssignees, onChange, taskId}: TaskFieldProps & {taskId: number}) {
     const [selectedUsers, setSelectedUsers] = React.useState<User[]>([]);
     const [shouldUpdate, setShouldUpdate] = React.useState(false);
     const [users, setUsers] = React.useState<User[]>([]);
@@ -36,16 +36,20 @@ function AssigneeField({value, onChange}: TaskFieldProps) {
     // prepare users from pageProps and remove users that are already assigned to the task
     useEffect(() => {
         const filteredUsers = initialUsers.filter(
-            (user) => !Object.values(value as Assignee[]).some((assignee) => assignee.user_id === user.id)
+            (user) => !Object.values(currentAssignees as Assignee[]).some((assignee) => assignee.id === user.id)
         );
 
         const selectedUsers = initialUsers.filter(
-            (user) => Object.values(value as Assignee[]).some((assignee) => assignee.user_id === user.id)
+            (user) => Object.values(currentAssignees as Assignee[]).some((assignee) => {
+                console.log("assignee", assignee);
+                console.log("user", user)
+                return assignee.user_id === user.id;
+            })
         );
 
         setUsers(filteredUsers.sort((a, b) => a.name.localeCompare(b.name)));
         setSelectedUsers(selectedUsers.sort((a, b) => a.name.localeCompare(b.name)));
-    }, []);
+    }, [currentAssignees]);
 
     // update Users as assignee when there has been a change in assigned users.
     useEffect(() => {
@@ -75,7 +79,11 @@ function AssigneeField({value, onChange}: TaskFieldProps) {
 
     // update the task with the new assignees
     function updateTaskWithUpdatedAssignees(assignees: User[]) {
-        onChange('assignees', assignees);
+        const assigneeList = assignees.map((assignee) => {
+            return {id: 0, user_id: assignee.id, tasks_id: taskId};
+        })
+
+        onChange('assignees', assigneeList);
     }
 
     // remove a user from the users list. when its add as assignee.

@@ -20,7 +20,6 @@ type EditableFieldProps = {
 
 const EditableTextField: React.FC<EditableFieldProps> = ({value, directFocus = false, onSave, onClick, clickable = false}) => {
     const [isEditing, setIsEditing] = useState(directFocus);
-    const [currentValue, setCurrentValue] = useState(value);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -29,9 +28,9 @@ const EditableTextField: React.FC<EditableFieldProps> = ({value, directFocus = f
         }
     }, []);
 
-    const handleSave = () => {
+    const handleSave = (value: string) => {
         setIsEditing(false);
-        onSave(currentValue);
+        onSave(value);
     };
 
     return (
@@ -40,15 +39,15 @@ const EditableTextField: React.FC<EditableFieldProps> = ({value, directFocus = f
                 <input
                     ref={inputRef}
                     type="text"
-                    value={currentValue}
+                    defaultValue={value}
+                    // value={currentValue}
                     className="p-0 w-full h-full focus:border-0 focus-visible:ring-0 text-sm flex items-center font-medium"
-                    onChange={(e) => setCurrentValue(e.target.value)}
-                    onBlur={handleSave} // Save when losing focus
+                    // onChange={(e) => setCurrentValue(e.target.value)}
+                    onBlur={(e) => handleSave(e.target.value)} // Save when losing focus
                     onKeyDown={(e) => {
-                        if (e.key === "Enter") handleSave(); // Save on Enter key
+                        if (e.key === "Enter") handleSave(e.currentTarget.value); // Save on Enter key
                         if (e.key === "Escape") {
                             setIsEditing(false); // Cancel on Escape
-                            setCurrentValue(value);
                         }
                     }}
                     autoFocus

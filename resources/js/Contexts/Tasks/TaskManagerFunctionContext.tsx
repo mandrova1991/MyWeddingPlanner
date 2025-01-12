@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useMemo} from 'react';
 import {TaskManagerFunctions, useTaskManagerContext} from "@/Components/MyWedding/Tasks/TaskListManager/TaskManager";
 
 
@@ -15,8 +15,12 @@ export const useTaskManagerFunctionContext = ():TaskManagerFunctions => {
 
 export const TaskManagerFunctionContextProvider = ({children, actions}: { children: React.ReactNode, actions: TaskManagerFunctions }) => {
 
+    const memo = useMemo(() => {
+        return actions
+    }, []);
+
     return (
-        <TaskManagerFunctionContext.Provider value={actions}>
+        <TaskManagerFunctionContext.Provider value={memo}>
             {children}
         </TaskManagerFunctionContext.Provider>
     )

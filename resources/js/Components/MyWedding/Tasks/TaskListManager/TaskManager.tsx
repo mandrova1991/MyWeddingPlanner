@@ -95,6 +95,7 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
     }, []);
 
     const updateTask = useCallback((categoryId: string, taskId: string, columnKey: keyof TaskType, value: any) => {
+        console.log('updateTask', categoryId, taskId, columnKey, value);
         dispatch({ type: 'UPDATE_TASK', payload: { categoryId, taskId, columnKey, value } });
     }, []);
 
@@ -117,12 +118,10 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
     // This function calculated the new order value.
     // The order value is a way to sort the categories.
     const getNewCategoryOrderPosition = () => {
-        const nextOrderPosition = state.reduce(
+        return state.reduce(
             (max, category) => (category.order > max ? category.order : max),
             0
         );
-
-        return nextOrderPosition;
     }
 
     const value = useMemo(() => ({
@@ -137,6 +136,8 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
             getNewCategoryOrderPosition,
         }
     }), [state]);
+
+    console.log(value)
 
     return (
         <TaskManagerContext.Provider value={value}>
