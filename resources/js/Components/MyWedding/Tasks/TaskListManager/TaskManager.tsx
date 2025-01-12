@@ -95,7 +95,6 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
     }, []);
 
     const updateTask = useCallback((categoryId: string, taskId: string, columnKey: keyof TaskType, value: any) => {
-        console.log('updateTask', categoryId, taskId, columnKey, value);
         dispatch({ type: 'UPDATE_TASK', payload: { categoryId, taskId, columnKey, value } });
     }, []);
 
@@ -136,8 +135,6 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
             getNewCategoryOrderPosition,
         }
     }), [state]);
-
-    console.log(value)
 
     return (
         <TaskManagerContext.Provider value={value}>

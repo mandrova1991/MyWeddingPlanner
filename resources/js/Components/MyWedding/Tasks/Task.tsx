@@ -34,8 +34,6 @@ const Task = React.memo(({taskData, columns}: { taskData: TaskType, columns: Col
         setTaskOpened(true);
     }
 
-    console.log('task', taskData)
-
     return (
         <>
             <div className=" group flex items-center border-b border-gray-200 w-fit hover:bg-gray-50">

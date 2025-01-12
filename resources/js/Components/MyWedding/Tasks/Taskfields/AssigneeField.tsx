@@ -41,8 +41,6 @@ function AssigneeField({value: currentAssignees, onChange, taskId}: TaskFieldPro
 
         const selectedUsers = initialUsers.filter(
             (user) => Object.values(currentAssignees as Assignee[]).some((assignee) => {
-                console.log("assignee", assignee);
-                console.log("user", user)
                 return assignee.user_id === user.id;
             })
         );

@@ -1,14 +1,11 @@
-import React, {useMemo, useState} from 'react';
-import {TaskContext, TaskContextProvider, useTaskContext} from "@/Contexts/Tasks/TaskContext";
+import React, {useMemo} from 'react';
+import {TaskContextProvider} from "@/Contexts/Tasks/TaskContext";
 import {Dialog, DialogContent} from "@/Components/ui/dialog";
 import TaskNameField from "@/Components/MyWedding/Tasks/Taskfields/TaskNameField";
 import AssigneeField from "@/Components/MyWedding/Tasks/Taskfields/AssigneeField";
 import DateField from "@/Components/MyWedding/Tasks/Taskfields/DateField";
 import StatusField from "@/Components/MyWedding/Tasks/Taskfields/StatusField";
 import {Label} from "@/Components/ui/label";
-import {twMerge} from "tailwind-merge";
-import {useTaskDialogContext} from "@/Contexts/Tasks/TaskDialogContext";
-import {log} from "node:util";
 import {TaskType} from "@/types/Tasks/Task";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
@@ -18,14 +15,11 @@ function TaskDialog({ task, taskOpened, setTaskOpened}: {
     taskOpened: boolean,
     setTaskOpened: (value: (((prevState: boolean) => boolean) | boolean)) => void
 }) {
-    // const {task, openTaskDialog, setOpenTaskDialog} = useTaskDialogContext();
     const {updateTask} = useTaskManagerFunctionContext();
     const taskDatabase = useTaskDatabase();
     const memorizedTask = useMemo(() => task, [task]);
     const rowClassName = 'h-8 grid grid-cols-2 grid-cols-[130px_1fr] items-center auto-cols-auto';
     const lableClassName = 'mr-2 w-20';
-
-    console.log('Render taskDialog')
 
     const handleTaskChange = (datakey: string, value: any) => {
         const updatedTask = { ...memorizedTask, [datakey]: value };
@@ -44,13 +38,13 @@ function TaskDialog({ task, taskOpened, setTaskOpened}: {
                         <DialogContent className="min-w-[1000px]" onInteractOutside={(e) => e.preventDefault()} onOpenAutoFocus={(e) => e.preventDefault()}>
                             <p>{memorizedTask.title}</p>
                             <div className={'w-[500px] grid gap-2 z-50'}>
-                                <div className={twMerge(rowClassName)}>
+                                <div className={rowClassName}>
                                     <Label className={lableClassName}>TaskName:</Label>
                                     <TaskNameField value={memorizedTask.title} onChange={handleTaskChange}/>
                                 </div>
                                 <div className={rowClassName}>
                                     <Label className={lableClassName}>Assignees:</Label>
-                                    <AssigneeField value={memorizedTask.assignees} onChange={handleTaskChange}/>
+                                    <AssigneeField value={memorizedTask.assignees} onChange={handleTaskChange} taskId={memorizedTask.id}/>
                                 </div>
                                 <div className={rowClassName}>
                                     <Label className={lableClassName}>Due Date:</Label>
