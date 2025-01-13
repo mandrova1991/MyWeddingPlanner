@@ -21,6 +21,9 @@ As of right now we are working on the TaskSystem. Tasks can be Created, Updated 
 Categories can be created updated and deleted. Various informatie is already implemented and gets updated.
 An overlay for the task has been made but in early development. 
 
+The backend has an RBAC permission system. For now we do not use the permission system yet on the frontend.
+This will updated after the taskOverlay is finished!
+
 There is no support for mobile devices for now. This will be implemented soon.
 
 To have a look at the current state it is available <a href="https://vibrant-napier.85-215-68-138.plesk.page/login">Here</a>
