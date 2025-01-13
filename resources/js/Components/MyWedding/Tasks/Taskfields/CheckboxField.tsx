@@ -11,9 +11,8 @@ import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctio
     The checkbox field is used to select a task. It is then added to the taskToolbar.
  */
 
-function CheckboxField() {
+function CheckboxField({taskId, taskCategoryId}: { taskId: number, taskCategoryId: number }) {
     const [visible, setVisible] = useState(false);
-    const task = useTaskContext();
     const taskToolbar = useTaskToolbarContext();
     const {deleteTask} = useTaskManagerFunctionContext();
 
@@ -23,9 +22,9 @@ function CheckboxField() {
 
     const onChange = (state: boolean) => {
         if (state){
-            taskToolbar.actions.addTask(task.states.task.id, () => deleteTask(task.states.task.category_id, task.states.task.id), () => unCheck());
+            taskToolbar.actions.addTask(taskId, () => deleteTask(taskCategoryId, taskId), () => unCheck());
         } else {
-            taskToolbar.actions.removeTask(task.states.task.id)
+            taskToolbar.actions.removeTask(taskId)
         }
         setVisible(state);
     }

@@ -49,6 +49,7 @@ const Task = React.memo(({taskData, columns}: { taskData: TaskType, columns: Col
                                     onChange={handleChange}
                                     onTitleClick={handleTitleClick}
                                     taskId={taskData.id}
+                                    taskCategoryId={taskData.category_id}
                                 />
                             </TaskCell>
                         </div>
