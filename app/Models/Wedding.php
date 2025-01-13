@@ -16,7 +16,7 @@ class Wedding extends Model
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'user_wedding_roles')
-            ->withPivot('role');
+            ->withPivot('role_id');
     }
 
     public function taskCategories(): \Illuminate\Database\Eloquent\Relations\HasMany

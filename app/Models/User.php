@@ -51,13 +51,31 @@ class User extends Authenticatable
     public function weddings() :belongsToMany
     {
         return $this->belongsToMany(Wedding::class, 'user_wedding_roles')
-            ->withPivot('role');
+            ->withPivot('role_id');
     }
 
-    public function roleInWedding(Wedding $wedding) :?string
+    public function weddingRoles()
     {
-        return $this->weddings()->where('wedding_id', $wedding->id)
-            ->first()?->pivot->role;
+        return $this->belongsToMany(Wedding::class, 'user_wedding_roles')
+            ->withPivot('role_id')
+            ->withTimestamps();
+    }
+
+    public function hasPermissionInWedding(string $permission, Wedding $wedding): bool
+    {
+        $role = $this->weddingRoles()->where('wedding_id', $wedding->id)->first();
+
+        if (!$role){
+            return false;
+        }
+
+        $roleModel = Role::find($role->pivot->role_id);
+
+        if (!$roleModel){
+            return false;
+        }
+
+        return $roleModel->permissions->contains('name', $permission);
     }
 
     public function assignedToTasks(): BelongsToMany

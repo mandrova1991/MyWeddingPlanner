@@ -2,11 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Models\Role;
 use App\Models\TaskCategory;
 use App\Models\Tasks;
 use App\Models\User;
 use App\Models\User_Wedding_Role;
 use App\Models\Wedding;
+use Database\Seeders\RolePermissionSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
@@ -17,7 +19,8 @@ class TasksTest extends TestCase
 
     public function testCreateTaskByUserWithRights()
     {
-        $wedding_data = $this->createUserAndLogin('wedding_admin');
+        $this->seedPermissions();
+        $wedding_data = $this->createUserAndLogin('admin');
 
         $taskCategory = $this->createTaskCategory();
         $task = Tasks::factory()->make([
@@ -34,8 +37,9 @@ class TasksTest extends TestCase
 
     public function testCreateTaskByUserWithoutRights()
     {
+        $this->seedPermissions();
         $taskCategory = $this->createTaskCategory();
-        $wedding_data = $this->createUserAndLogin('wedding_guest');
+        $wedding_data = $this->createUserAndLogin('guest');
 
         $task = Tasks::factory()->make([
             'title' => 'Test Task',
@@ -45,23 +49,23 @@ class TasksTest extends TestCase
         ]);
         $response = $this->post(route('tasks.store', ['wedding' => $wedding_data->id]), $task->toArray());
 
-        $response->assertStatus(401);
+        $response->assertStatus(403);
     }
 
     public function testCanUpdateAsWeddingAdmin()
     {
-        $this->UpdateTask('wedding_admin', 200);
+        $this->UpdateTask('admin', 200);
     }
 
     public function testCannotUpdateAsGuest()
     {
-        $this->UpdateTask('wedding_guest', 401, false);
+        $this->UpdateTask('guest', 403, false);
     }
 
 
     public function UpdateTask($role, $shouldBeStatus, $checkJson = true)
     {
-
+        $this->seedPermissions();
         // Setup data
         $taskCategory = $this->createTaskCategory();
         $task = Tasks::factory()->create([
@@ -89,7 +93,8 @@ class TasksTest extends TestCase
 
     public function testDeleteTask()
     {
-        $wedding_data = $this->createUserAndLogin('wedding_admin');
+        $this->seedPermissions();
+        $wedding_data = $this->createUserAndLogin('admin');
 
         $task = Tasks::create([
             'title' => 'Test Task',
@@ -105,12 +110,13 @@ class TasksTest extends TestCase
 
     public function testWrongWeddingIDOnDeletion()
     {
+        $this->seedPermissions();
         $extraWedding = Wedding::create([
             'id' => 1,
             'name' => 'Test Wedding',
         ]);
 
-        $wedding_data = $this->createUserAndLogin('wedding_admin');
+        $wedding_data = $this->createUserAndLogin('admin');
 
         $task = Tasks::create([
             'title' => 'Test Task',
@@ -120,7 +126,7 @@ class TasksTest extends TestCase
         ]);
 
         $response = $this->delete(route('tasks.destroy', ['wedding' => $extraWedding->id, 'task' => $task->id]));
-        $response->assertStatus(401);
+        $response->assertStatus(403);
     }
 
     public function createWeddingData(User $user, $role)
@@ -130,8 +136,9 @@ class TasksTest extends TestCase
             'name' => 'Test Wedding',
         ]);
 
+        $role = Role::where('name', $role)->first();
 
-        $wedding->users()->attach(auth()->id(), ['role' => $role]);
+        $wedding->users()->attach(auth()->id(), ['role_id' => $role->id]);
 
         return $wedding;
     }
@@ -150,5 +157,10 @@ class TasksTest extends TestCase
     public function createTaskCategory()
     {
         return TaskCategory::factory()->create();
+    }
+
+    public function seedPermissions()
+    {
+        $this->seed(RolePermissionSeeder::class);
     }
 }

@@ -22,6 +22,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        $this->call([
+            RolePermissionSeeder::class,
+        ]);
 
         Wedding::create([
             'name' => 'Wedding 1',
@@ -35,7 +38,7 @@ class DatabaseSeeder extends Seeder
         ])->each(function ($user) {
             UserWeddingRole::factory()->create([
                 'user_id' => $user->id,
-                'role' => 'wedding_admin'
+                'role_id' => 1
             ]);
         });
 
@@ -61,6 +64,7 @@ class DatabaseSeeder extends Seeder
             });
 
         TaskAssignee::factory(5)->create();
+
 
     }
 }

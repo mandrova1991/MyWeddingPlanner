@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Role;
 use App\Models\UserWeddingRole;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -11,10 +12,12 @@ class UserWeddingRoleFactory extends Factory
 
     public function definition(): array
     {
+        $roles = Role::pluck('id');
+
         return [
             'user_id' => null,
             'wedding_id' => 1,
-            'role' => $this->faker->randomElement(['wedding_admin', 'wedding_manager', 'wedding_guest']),
+            'role_id' => $this->faker->randomElement($roles),
         ];
     }
 }

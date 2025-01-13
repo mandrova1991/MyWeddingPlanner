@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DeleteTaskRequest;
+use App\Http\Requests\StoreTaskRequest;
+use App\Http\Requests\UpdateTaskRequest;
 use App\Http\Responses\ServerResponse;
 use App\Models\TaskAssignee;
 use App\Models\Tasks;
@@ -22,28 +25,13 @@ class TasksController extends Controller
 
     }
 
-    public function store(Request $request, Wedding $wedding)
+    public function store(StoreTaskRequest $request, Wedding $wedding)
     {
 
         try {
             // Validate incomming data
-            $data = $request->validate([
-                'id' => ['numeric'],
-                'title' => ['required', 'string'],
-                'description' => ['string', 'nullable'],
-                'status' => ['required', 'string'],
-                'category_id' => ['required', 'integer'],
-                'order' => ['required', 'integer'],
-                'due_date' => ['date', 'nullable'],
-                'parent_task' => ['numeric', 'nullable'],
-                'wedding_id' => ['numeric', 'required'],
-                'priority' => ['string', 'nullable'],
-                'progress' => ['integer'],
-                'created_at' => ['date'],
-                'updated_at' => ['date'],
-                'updated_by' => ['numeric', 'nullable'],
-                'created_by' => ['numeric', 'nullable'],
-            ]);
+            $validatedData = $request->validated();
+
         } catch (Exception $e) {
             return ServerResponse::errorResponse(
                 $e->getMessage(),
@@ -53,22 +41,8 @@ class TasksController extends Controller
             );
         }
 
-
-        // Get wedding and the users role in the wedding
-        $userRole = auth()->user()->roleInWedding($wedding);
-
-        // check if user has permission based on its role in the wedding
-        if ($userRole != 'wedding_admin' && $userRole != 'wedding_planner') {
-            return ServerResponse::basicResponse(
-                'You are unauthorized!',
-                null,
-                401
-            );
-        }
-
-
         // Create the task as is given
-        $task = Tasks::create($data);
+        $task = Tasks::create($validatedData);
         $taskData = Tasks::with(['subtasks', 'assignees'])->find($task->id);
 
         // Return a response.
@@ -88,7 +62,7 @@ class TasksController extends Controller
         );
     }
 
-    public function update(Request $request, Wedding $wedding, Tasks $task)
+    public function update(UpdateTaskRequest $request, Wedding $wedding, Tasks $task)
     {
         try {
             // Validate user input. Note: none of these are set as required. Only updated fields have to be sent.
@@ -110,18 +84,6 @@ class TasksController extends Controller
                 'updated_by' => ['numeric', 'nullable'],
                 'created_by' => ['numeric', 'nullable'],
             ]);
-
-
-            // check if user has permission based on its role in the wedding
-            $userRole = auth()->user()->roleInWedding($wedding);
-            if ($userRole != 'wedding_admin' && $userRole != 'wedding_planner') {
-                return ServerResponse::basicResponse(
-                    'You are unauthorized!',
-                    null,
-                    401
-                );
-            }
-
 
             // Update task with new data
             $task->update($data);
@@ -182,16 +144,15 @@ class TasksController extends Controller
         );
     }
 
-    public function destroy(Wedding $wedding, Tasks $task)
+    public function destroy(DeleteTaskRequest $request, Wedding $wedding, Tasks $task)
     {
-        // check if task is coupled to wedding
-        if ($task->wedding_id != $wedding->id) {
-            return ServerResponse::errorResponse(
-                'You are unauthorized!',
-                'Trying to delete a task that doesn\'t belong to the wedding!',
-                status: 401
-            );
-        }
+//        if(!$request->authorize()){
+//            return ServerResponse::errorResponse(
+//                'You are unauthorized!',
+//                'Trying to delete a task that doesn\'t belong to the wedding!',
+//                status: 403
+//            );
+//        }
 
         $task->delete();
 
