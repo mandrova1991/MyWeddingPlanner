@@ -12,11 +12,13 @@ Route::get('/user', function (Request $request) {
 
 // Auth Routes
 Route::post('/register', [AuthController::class, 'register'])->name('api.auth.register');
-Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login')->middleware('web');
+Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
 Route::post('/logout', [AuthController::class, 'logout'])->name('api.auth.logout')->middleware('auth:sanctum');
 Route::get('/refresh_token', [AuthController::class, 'refresh_token'])->name('api.auth.refresh_token')->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
+    // Permissions
+    Route::get('{wedding}/permissions', [\App\Http\Controllers\PermissionController::class, 'index'])->name('api.wedding.auth.permissions');
 
     // All Task related Routes
     Route::get('{wedding}/tasks', [TasksController::class, 'index'])->name('tasks.index');

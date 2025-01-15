@@ -82,4 +82,19 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(TaskAssignee::class, 'user_task_assignees', 'id', 'user_id');
     }
+
+    public function listPermissionsInWedding(Wedding $wedding)
+    {
+        $role = $this->weddingRoles()->where('wedding_id', $wedding->id)->first();
+        if (!$role){
+            return false;
+        }
+
+        $roleModel = Role::find($role->pivot->role_id);
+        if (!$roleModel){
+            return false;
+        }
+
+        return $roleModel->permissions->pluck('name');
+    }
 }

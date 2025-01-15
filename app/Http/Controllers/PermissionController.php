@@ -3,13 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Permission;
+use App\Models\Wedding;
 use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
-    public function index()
+    public function index(Wedding $wedding)
     {
-        return Permission::all();
+        $user = auth()->user();
+
+
+        return response()->json($user->listPermissionsInWedding($wedding));
     }
 
     public function store(Request $request)
