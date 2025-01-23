@@ -4,7 +4,7 @@ import {TaskType} from "@/types/Tasks/Task";
 
 /*
     The TaskManager is an important part of the taskList.
-    It hold all the information for taskCategories and Tasks.
+    It hold all the information for taskCategories and Task.
     The functions of the TaskManager are used troughout the TaskList.
     These functions are only used to update the UI.
  */
@@ -88,7 +88,9 @@ function taskManagerReducer(state: TaskCategoryType[], action: any): TaskCategor
 }
 
 function TaskManagerProvider({children, initialState}: {children: React.ReactNode, initialState: TaskCategoryType[]}) {
+    console.log('initialState', initialState);
     const [state, dispatch] = useReducer(taskManagerReducer, initialState);
+    console.log('state', state)
 
     const addTask = useCallback((categoryId: number, task: TaskType) => {
         dispatch({ type: 'ADD_TASK', payload: { categoryId, task } });

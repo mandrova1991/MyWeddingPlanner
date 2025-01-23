@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Task;
 use App\Models\Wedding;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends Factory<Task>
  */
-class TasksFactory extends Factory
+class TaskFactory extends Factory
 {
     /**
      * Define the model's default state.

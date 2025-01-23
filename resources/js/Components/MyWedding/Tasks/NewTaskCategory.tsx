@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Dialog, DialogContent, DialogTrigger} from "@/Components/ui/dialog";
+import {Dialog, DialogContent} from "@/Components/ui/dialog";
 import {Button} from "@/Components/ui/button";
 import {PlusCircle} from "lucide-react";
 import {Input} from "@/Components/ui/input";
 import {useTaskCategoryDatabase} from "@/hooks/Database/use-task-category-database";
 import {TaskCategoryType} from "@/types/Tasks/TaskCategory";
-import {usePage} from "@inertiajs/react";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
+import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useAuthContext} from "@/Contexts/AuthContext";
 
 
 // New TaskCategory dialog is a dialog that appears when the user clicks the "Add Category" button.
@@ -20,7 +21,8 @@ function NewTaskCategory({buttonClassName}: { buttonClassName?: string }) {
 
     const taskManager = useTaskManagerFunctionContext();
     const {addCategory, updateCategory} = useTaskManagerFunctionContext();
-    const {auth, wedding} = usePage().props;
+    const {wedding} = UseWeddingContext();
+    const {user: authUser} = useAuthContext();
 
     const handleSubmit = async () => {
         const newCategory: TaskCategoryType = {
@@ -29,7 +31,7 @@ function NewTaskCategory({buttonClassName}: { buttonClassName?: string }) {
             tasks: [],
             order: taskManager.getNewCategoryOrderPosition(),
             wedding_id: wedding.id,
-            created_by: auth.user.id,
+            created_by: authUser.id,
         }
 
         // Create a temporary TaskCategory

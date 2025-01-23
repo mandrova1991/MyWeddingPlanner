@@ -22,7 +22,7 @@ return new class extends Migration {
             $table->foreignIdFor(\App\Models\User::class, 'created_by')->nullable();
             $table->foreignIdFor(\App\Models\User::class, 'updated_by')->nullable();
             $table->foreignIdFor(\App\Models\Wedding::class);
-            $table->foreignIdFor(\App\Models\Tasks::class, 'parent_task')->nullable();
+            $table->foreignIdFor(\App\Models\Task::class, 'parent_task')->nullable();
             $table->foreign('category_id')->references('id')->on('task_categories')->onDelete('cascade');
 
             $table->timestamps();

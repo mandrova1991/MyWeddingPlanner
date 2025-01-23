@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import {usePage} from "@inertiajs/react";
 import TaskListHeader from "@/Components/MyWedding/Tasks/TaskListHeader";
@@ -19,15 +19,38 @@ import CreatedByField from "@/Components/MyWedding/Tasks/Taskfields/CreatedByFie
 import UpdatedByField from "@/Components/MyWedding/Tasks/Taskfields/UpdatedByField";
 import createdAtField from "@/Components/MyWedding/Tasks/Taskfields/CreatedAtField";
 import UpdatedAtField from "@/Components/MyWedding/Tasks/Taskfields/UpdatedAtField";
+import {TaskType} from "@/types/Tasks/Task";
+import api from "@/axios";
+import {UseWeddingContext, useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 function TaskList() {
-    const {tasks, task_categories} = usePage().props;
-    const data = Object.values(task_categories).map((category: TaskCategoryType) => {
+    const {wedding} = UseWeddingContext();
+    const [tasks, setTasks] = useState<TaskType[]>([]);
+    const [taskCategories, setTaskCategories] = useState<TaskCategoryType[] | never[]>([]);
+
+    useEffect(() => {
+        const fetchTaskCategories = async () => {
+            const response  = await api.get(route("api.taskcategory.index", {wedding: wedding.id}));
+            setTaskCategories(response.data.objectData || [])
+        }
+
+        const fetchTasks = async () => {
+            const response  = await api.get(route("api.tasks.index", {wedding: wedding.id}));
+            setTasks(response.data.objectData || [])
+        }
+
+        fetchTasks();
+        fetchTaskCategories();
+    }, []);
+
+    const data = Object.values(taskCategories).map((category: TaskCategoryType) => {
         return {
             ...category,
             tasks: tasks.filter((task) => task.category_id === category.id)
         }
     });
+
+    console.log('data', data);
 
     const [columns, setColumns] = React.useState<ColumnConfigMap>({
         gripHandle: {
@@ -209,7 +232,6 @@ function TaskList() {
     }
 
     return (
-        <DashboardLayout>
             <TaskListProviders data={data}>
                         <div className={"Tasklist-header p-3 shadow-[0_5px_17px_-5px_rgba(0,0,0,0.2)]"}>
                             <TaskListHeader columns={columns} handleConfigChange={handleConfigChange}/>
@@ -217,7 +239,6 @@ function TaskList() {
                         <TaskListContent columns={columns} handleConfigChange={handleConfigChange}/>
                         <TaskToolbar/>
             </TaskListProviders>
-        </DashboardLayout>
     );
 }
 

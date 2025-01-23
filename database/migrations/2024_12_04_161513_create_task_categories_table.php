@@ -11,7 +11,7 @@ return new class extends Migration {
             $table->id();
             $table->string('name');
             $table->integer('wedding_id');
-            $table->integer('created_by');
+            $table->integer('created_by')->nullable();
             $table->integer('order');
         });
     }

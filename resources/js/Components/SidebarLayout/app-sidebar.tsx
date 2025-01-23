@@ -23,148 +23,152 @@ import {
     SidebarRail,
 } from "@/Components/ui/sidebar"
 import {usePage} from "@inertiajs/react";
-
-// This is sample data.
-const data = {
-    teams: [
-        {
-            name: "Acme Inc",
-            logo: GalleryVerticalEnd,
-            plan: "Enterprise",
-        },
-        {
-            name: "Acme Corp.",
-            logo: AudioWaveform,
-            plan: "Startup",
-        },
-        {
-            name: "Evil Corp.",
-            logo: Command,
-            plan: "Free",
-        },
-    ],
-    navMain: [
-        {
-            title: "My Wedding",
-            url: "#",
-            icon: Gem,
-            isActive: true,
-            items: [
-                {
-                    title: "Tasks",
-                    url: "/1/task-list",
-                },
-                {
-                    title: "Agenda",
-                    url: "#",
-                },
-                {
-                    title: "Planboard",
-                    url: "#",
-                },
-                {
-                    title: "Access Control",
-                    url: "#",
-                },
-                {
-                    title: "Settings",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Guests",
-            url: "#",
-            icon: Users,
-            items: [
-                {
-                    title: "RSVP",
-                    url: "#",
-                },
-                {
-                    title: "Guestlist",
-                    url: "#",
-                },
-                {
-                    title: "Invitations",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Budgeting",
-            url: "#",
-            icon: HandCoins,
-            items: [
-                {
-                    title: "Budget setup",
-                    url: "#",
-                },
-                {
-                    title: "Get Started",
-                    url: "#",
-                },
-                {
-                    title: "Tutorials",
-                    url: "#",
-                },
-                {
-                    title: "Changelog",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Communication",
-            url: "#",
-            icon: Mail,
-            items: [
-                {
-                    title: "General",
-                    url: "#",
-                },
-                {
-                    title: "Team",
-                    url: "#",
-                },
-                {
-                    title: "Billing",
-                    url: "#",
-                },
-                {
-                    title: "Limits",
-                    url: "#",
-                },
-            ],
-        },
-        {
-            title: "Settings",
-            url: "#",
-            icon: Settings2,
-            items: [
-                {
-                    title: "General",
-                    url: "#",
-                },
-                {
-                    title: "Team",
-                    url: "#",
-                },
-                {
-                    title: "Billing",
-                    url: "#",
-                },
-                {
-                    title: "Limits",
-                    url: "#",
-                },
-            ],
-        },
-    ],
-}
+import {useEffect} from "react";
+import {useAuthContext} from "@/Contexts/AuthContext";
+import {UseWeddingContext, useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const {auth} = usePage().props
+    const {wedding} = UseWeddingContext();
+    const data = {
+        teams: [
+            {
+                name: "Acme Inc",
+                logo: GalleryVerticalEnd,
+                plan: "Enterprise",
+            },
+            {
+                name: "Acme Corp.",
+                logo: AudioWaveform,
+                plan: "Startup",
+            },
+            {
+                name: "Evil Corp.",
+                logo: Command,
+                plan: "Free",
+            },
+        ],
+        navMain: [
+            {
+                title: "My Wedding",
+                url: "#",
+                icon: Gem,
+                isActive: true,
+                items: [
+                    {
+                        title: "Task",
+                        url: `/wedding/${wedding.id}/task-list`,
+                    },
+                    {
+                        title: "Agenda",
+                        url: "#",
+                    },
+                    {
+                        title: "Planboard",
+                        url: "#",
+                    },
+                    {
+                        title: "Access Control",
+                        url: "#",
+                    },
+                    {
+                        title: "Settings",
+                        url: "#",
+                    },
+                ],
+            },
+            {
+                title: "Guests",
+                url: "#",
+                icon: Users,
+                items: [
+                    {
+                        title: "RSVP",
+                        url: "#",
+                    },
+                    {
+                        title: "Guestlist",
+                        url: "#",
+                    },
+                    {
+                        title: "Invitations",
+                        url: "#",
+                    },
+                ],
+            },
+            {
+                title: "Budgeting",
+                url: "#",
+                icon: HandCoins,
+                items: [
+                    {
+                        title: "Budget setup",
+                        url: "#",
+                    },
+                    {
+                        title: "Get Started",
+                        url: "#",
+                    },
+                    {
+                        title: "Tutorials",
+                        url: "#",
+                    },
+                    {
+                        title: "Changelog",
+                        url: "#",
+                    },
+                ],
+            },
+            {
+                title: "Communication",
+                url: "#",
+                icon: Mail,
+                items: [
+                    {
+                        title: "General",
+                        url: "#",
+                    },
+                    {
+                        title: "Team",
+                        url: "#",
+                    },
+                    {
+                        title: "Billing",
+                        url: "#",
+                    },
+                    {
+                        title: "Limits",
+                        url: "#",
+                    },
+                ],
+            },
+            {
+                title: "Settings",
+                url: "#",
+                icon: Settings2,
+                items: [
+                    {
+                        title: "General",
+                        url: "#",
+                    },
+                    {
+                        title: "Team",
+                        url: "#",
+                    },
+                    {
+                        title: "Billing",
+                        url: "#",
+                    },
+                    {
+                        title: "Limits",
+                        url: "#",
+                    },
+                ],
+            },
+        ],
+    }
+
+
+    const user = useAuthContext();
 
     return (
         <Sidebar collapsible="icon" {...props}>
@@ -175,7 +179,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 <NavMain items={data.navMain} />
             </SidebarContent>
             <SidebarFooter>
-                <NavUser user={auth.user} />
+                <NavUser user={user} />
             </SidebarFooter>
             <SidebarRail />
         </Sidebar>

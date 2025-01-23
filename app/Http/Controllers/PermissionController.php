@@ -12,7 +12,6 @@ class PermissionController extends Controller
     {
         $user = auth()->user();
 
-
         return response()->json($user->listPermissionsInWedding($wedding));
     }
 

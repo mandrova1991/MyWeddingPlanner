@@ -22,7 +22,7 @@ class TaskCategory extends Model
 
     public function tasks()
     {
-        return $this->hasMany(Tasks::class, 'category_id', 'id');
+        return $this->hasMany(Task::class, 'category_id', 'id');
     }
 
     public function wedding()

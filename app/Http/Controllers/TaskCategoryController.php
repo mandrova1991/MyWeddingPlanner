@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskCategories\CreateNewTaskCategoryRequest;
+use App\Http\Requests\TaskCategories\DeleteTaskCategoryRequest;
+use App\Http\Requests\TaskCategories\UpdateTaskCategoryRequest;
+use App\Http\Resources\TaskCategoryResource;
 use App\Http\Responses\ServerResponse;
 use App\Models\TaskCategory;
 use App\Models\Wedding;
@@ -12,7 +16,8 @@ class TaskCategoryController extends Controller
 {
     public function index(Wedding $wedding)
     {
-        $taskCategories = TaskCategory::with('tasks')->where('wedding_id', $wedding->id)->get();
+//        $taskCategories = TaskCategory::with('tasks')->where('wedding_id', $wedding->id)->get();
+        $taskCategories = TaskCategory::where('wedding_id', $wedding->id)->get();
 
         return ServerResponse::basicResponse(
             'Task Categories retrieved successfully.',
@@ -20,40 +25,15 @@ class TaskCategoryController extends Controller
         );
     }
 
-    public function store(Request $request, Wedding $wedding)
+    public function store(CreateNewTaskCategoryRequest $request, Wedding $wedding)
     {
-        try{
-            $data = $request->validate([
-                'name' => ['required'],
-                'wedding_id' => ['required', 'integer'],
-                'created_by' => ['required', 'integer'],
-                'order' => ['required', 'integer'],
-            ]);
-        } catch (Exception $e){
-            return ServerResponse::errorResponse(
-                $e->getMessage(),
-                'Trying to validate users input data',
-                'should be validated when requirements are met',
-                null,
-            );
-        }
-
-
-
-        $userRole = auth()->user()->roleInWedding($wedding);
-        if ($userRole != 'wedding_admin' && $userRole != 'wedding_planner') {
-            return ServerResponse::basicResponse(
-                'You are unauthorized!',
-                null,
-                401
-            );
-        }
+        $data = $request->validated();
 
         $taskCategory = TaskCategory::create($data);
 
         return ServerResponse::basicResponse(
             'Task Category created successfully!',
-            $taskCategory,
+            new TaskCategoryResource($taskCategory),
         );
     }
 
@@ -65,33 +45,9 @@ class TaskCategoryController extends Controller
         );
     }
 
-    public function update(Request $request, Wedding $wedding, TaskCategory $taskCategory)
+    public function update(UpdateTaskCategoryRequest $request, Wedding $wedding, TaskCategory $taskCategory)
     {
-        try{
-            $data = $request->validate([
-                'name' => ['string'],
-                'wedding_id' => ['integer'],
-                'created_by' => ['integer'],
-            ]);
-        } catch (Exception $e){
-            return ServerResponse::errorResponse(
-                $e->getMessage(),
-                'Trying to validate users input data',
-                'should be validated when requirements are met',
-                ["request" => $request->all()],
-            );
-        }
-
-        $userRole = auth()->user()->roleInWedding($wedding);
-        if ($userRole != 'wedding_admin' && $userRole != 'wedding_planner') {
-            return ServerResponse::errorResponse(
-                "You are unauthorized!",
-                'Trying to update task category',
-                null,
-                null,
-            );
-        }
-
+        $data = $request->validated();
 
         $taskCategory->update($data);
 
@@ -101,17 +57,8 @@ class TaskCategoryController extends Controller
         );
     }
 
-    public function destroy(Wedding $wedding, TaskCategory $taskCategory)
+    public function destroy(DeleteTaskCategoryRequest $request, Wedding $wedding, TaskCategory $taskCategory)
     {
-        if ($taskCategory->wedding_id != $wedding->id) {
-            return ServerResponse::errorResponse(
-                'You are unauthorized!',
-                'Trying to delete task category',
-                null,
-                null,
-            );
-        }
-
         $taskCategory->delete();
 
         return ServerResponse::basicResponse(

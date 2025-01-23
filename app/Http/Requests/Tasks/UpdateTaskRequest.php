@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tasks;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -24,21 +24,21 @@ class UpdateTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => ['numeric'],
-            'title' => ['required', 'string'],
+            'id'          => ['numeric'],
+            'title'       => ['required', 'string'],
             'description' => ['string', 'nullable'],
-            'status' => ['required', 'string'],
+            'status'      => ['required', 'string'],
             'category_id' => ['required', 'integer'],
-            'order' => ['required', 'integer'],
-            'due_date' => ['date', 'nullable'],
+            'order'       => ['required', 'integer'],
+            'due_date'    => ['date', 'nullable'],
             'parent_task' => ['numeric', 'nullable'],
-            'wedding_id' => ['numeric', 'required'],
-            'priority' => ['string', 'nullable'],
-            'progress' => ['integer', 'nullable'],
-            'created_at' => ['date'],
-            'updated_at' => ['date'],
-            'updated_by' => ['numeric', 'nullable'],
-            'created_by' => ['numeric', 'nullable'],
+            'wedding_id'  => ['numeric', 'required'],
+            'priority'    => ['string', 'nullable'],
+            'progress'    => ['integer', 'nullable'],
+            'created_at'  => ['date'],
+            'updated_at'  => ['date'],
+            'updated_by'  => ['numeric', 'nullable'],
+            'created_by'  => ['numeric', 'nullable'],
         ];
     }
 }

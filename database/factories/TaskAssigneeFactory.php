@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\TaskAssignee;
-use App\Models\Tasks;
+use App\Models\Task;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -16,7 +16,7 @@ class TaskAssigneeFactory extends Factory
         return [
 
             'user_id' => User::inRandomOrder()->first()->id,
-            'tasks_id' => Tasks::inRandomOrder()->first()->id,
+            'task_id' => Task::inRandomOrder()->first()->id,
         ];
     }
 }

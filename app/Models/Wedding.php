@@ -26,6 +26,6 @@ class Wedding extends Model
 
     public function tasks(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(Tasks::class, 'wedding_id');
+        return $this->hasMany(Task::class, 'wedding_id');
     }
 }

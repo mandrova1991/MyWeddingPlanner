@@ -7,6 +7,8 @@ import Task from "@/Components/MyWedding/Tasks/Task";
 import {format} from "date-fns";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
+import {useAuthContext} from "@/Contexts/AuthContext";
+import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 // Use Task hook is used to provide function for task. This could be updated to task data or even saving te task to the backend.
 
@@ -55,9 +57,10 @@ export const useTask = (initialTask?: TaskType): useTaskReturnType => {
     const [task, setTask] = React.useState<TaskType>(initialTask || emptyTask);
     const [openTask, setOpenTask] = useState(false);
     // const taskCategoryContext = useTaskCategoryContext();
-    const {auth, wedding} = usePage().props;
     const taskDatabase = useTaskDatabase();
     const {updateTask } = useTaskManagerFunctionContext();
+    const {user: authUser} = useAuthContext();
+    const {wedding} = UseWeddingContext();
 
 
     // Update the task. It needs a key and a value.
@@ -88,7 +91,7 @@ export const useTask = (initialTask?: TaskType): useTaskReturnType => {
             assignees: [],
             // category_id: taskCategoryContext.states.taskCategory.id || 0,
             category_id: 1,
-            created_by: auth.user.id,
+            created_by: authUser.id,
             description: null,
             due_date: null,
             id: 0,
@@ -127,3 +130,14 @@ export const useTask = (initialTask?: TaskType): useTaskReturnType => {
         }
     }
 };
+
+
+
+
+
+
+
+
+
+
+

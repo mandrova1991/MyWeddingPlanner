@@ -7,6 +7,8 @@ import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/Components/ui/tooltip";
 import {User} from "@/types";
 import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
+import {useWeddingUserContext} from "@/Contexts/Wedding/WeddingUserContext";
+import {useAuthContext} from "@/Contexts/AuthContext";
 
 /*
     The assigneefield is used to assigne users to tasks.
@@ -26,19 +28,27 @@ function AssigneeField({value: currentAssignees, onChange, taskId}: TaskFieldPro
     const [selectedUsers, setSelectedUsers] = React.useState<User[]>([]);
     const [shouldUpdate, setShouldUpdate] = React.useState(false);
     const [users, setUsers] = React.useState<User[]>([]);
-    const initialUsers = usePage().props.users as User[];
+    const {weddingUsers: initialUsers} = useWeddingUserContext();
+
+    console.log(currentAssignees)
 
     // prepare users from pageProps and remove users that are already assigned to the task
     useEffect(() => {
         const filteredUsers = initialUsers.filter(
-            (user) => !Object.values(currentAssignees as Assignee[]).some((assignee) => assignee.id === user.id)
-        );
-
-        const selectedUsers = initialUsers.filter(
-            (user) => Object.values(currentAssignees as Assignee[]).some((assignee) => {
+            (user: User) => !Object.values(currentAssignees as Assignee[]).some((assignee) => {
                 return assignee.user_id === user.id;
             })
         );
+
+        const selectedUsers = initialUsers.filter(
+            (user: User) => Object.values(currentAssignees as Assignee[]).some((assignee) => {
+                return assignee.user_id === user.id;
+            })
+        );
+
+        console.log("filteredUser", filteredUsers);
+        console.log("selectedUsers", selectedUsers);
+
 
         setUsers(filteredUsers.sort((a, b) => a.name.localeCompare(b.name)));
         setSelectedUsers(selectedUsers.sort((a, b) => a.name.localeCompare(b.name)));
@@ -159,8 +169,8 @@ export default AssigneeField;
 // Assignee holds the avatar. Assignee is used in the assigneefield shown in the TaskList.
 // TODO rewrite this to have it accept UserType
 function Assignee({user}: { user: User }) {
-    const {auth} = usePage().props;
-    const userInitials = auth.user.id == user.id ? "Me" : user.avatar_initials;
+    const {user: authUser} = useAuthContext();
+    const userInitials = authUser.id == user.id ? "Me" : user.avatar_initials;
 
     return (
         <div className="task-assignee flex items-center -ml-3 first:ml-0">
@@ -196,8 +206,8 @@ function AssigneeSelector({user, onSelect}: { user: User, onSelect?: (user: User
 // AssigneeStrip is the visual representation of the user in the assigneeSelectionList.
 // TODO rewrite this to have it accept UserType
 function AssigneeStrip({user}: { user: User }) {
-    const {auth} = usePage().props;
-    const userInitials = auth.user.id == user.id ? "Me" : user.avatar_initials;
+    const {user: authUser} = useAuthContext();
+    const userInitials = authUser.id == user.id ? "Me" : user.avatar_initials;
 
     return (
         <>
@@ -205,7 +215,7 @@ function AssigneeStrip({user}: { user: User }) {
                 <AvatarImage src={user.avatar} alt={user.name}/>
                 <AvatarFallback className="rounded-full text-xs font-thin" style={{backgroundColor: user.avatar_color}}>{userInitials}</AvatarFallback>
             </Avatar>
-            <p className="font-medium text-sm ml-2">{auth.user.id == user.id ? "Me" : user.name}</p>
+            <p className="font-medium text-sm ml-2">{authUser.id == user.id ? "Me" : user.name}</p>
         </>
     )
 }

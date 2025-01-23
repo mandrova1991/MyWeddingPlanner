@@ -2,7 +2,7 @@ import React, {useMemo} from "react";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 
 /*
-    The taskToolbar hold selected Tasks. It can do various things with them like deleting selected Tasks.
+    The taskToolbar hold selected Task. It can do various things with them like deleting selected Task.
     There will be more features in the future to be used like update the status for all selected tasks.
  */
 

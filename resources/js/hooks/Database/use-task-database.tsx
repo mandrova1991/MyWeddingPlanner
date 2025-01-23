@@ -2,6 +2,7 @@ import React from "react";
 import {TaskType} from "@/types/Tasks/Task";
 import api from "@/axios";
 import {usePage} from "@inertiajs/react";
+import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 
 /*
@@ -20,7 +21,7 @@ export type useTaskDatabaseReturnType = {
 }
 
 export const useTaskDatabase = (): useTaskDatabaseReturnType => {
-    const wedding = usePage().props.wedding as WeddingType;
+    const {wedding} = UseWeddingContext();
 
     // TODO Handle Errors
     const createTask = async (task: TaskType) => {

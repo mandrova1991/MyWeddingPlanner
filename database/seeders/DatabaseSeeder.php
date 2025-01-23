@@ -4,13 +4,13 @@ namespace Database\Seeders;
 
 use App\Models\TaskAssignee;
 use App\Models\TaskCategory;
-use App\Models\Tasks;
+use App\Models\Task;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\UserWeddingRole;
 use App\Models\Wedding;
-use Illuminate\Console\View\Components\Task;
+//use Illuminate\Console\View\Components\Task;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Testing\Concerns\Has;
@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
             ->each(function ($taskCategory) {
                 $orderValues = range(0, 9);
 
-                Tasks::factory(3)
+                Task::factory(3)
                     ->create([
                         'category_id' => $taskCategory->id,
                         'order' => function ($task) use (&$orderValues) {

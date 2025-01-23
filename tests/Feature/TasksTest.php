@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Role;
 use App\Models\TaskCategory;
-use App\Models\Tasks;
+use App\Models\Task;
 use App\Models\User;
 use App\Models\User_Wedding_Role;
 use App\Models\Wedding;
@@ -23,7 +23,7 @@ class TasksTest extends TestCase
         $wedding_data = $this->createUserAndLogin('admin');
 
         $taskCategory = $this->createTaskCategory();
-        $task = Tasks::factory()->make([
+        $task = Task::factory()->make([
             'title' => 'Test Task',
             'wedding_id' => $wedding_data->id,
             'category_id' => $taskCategory->id,
@@ -41,7 +41,7 @@ class TasksTest extends TestCase
         $taskCategory = $this->createTaskCategory();
         $wedding_data = $this->createUserAndLogin('guest');
 
-        $task = Tasks::factory()->make([
+        $task = Task::factory()->make([
             'title' => 'Test Task',
             'wedding_id' => $wedding_data->id,
             'category_id' => $taskCategory->id,
@@ -68,7 +68,7 @@ class TasksTest extends TestCase
         $this->seedPermissions();
         // Setup data
         $taskCategory = $this->createTaskCategory();
-        $task = Tasks::factory()->create([
+        $task = Task::factory()->create([
             'title' => 'Test Task',
             'wedding_id' => 1,
             'category_id' => $taskCategory->id,
@@ -96,7 +96,7 @@ class TasksTest extends TestCase
         $this->seedPermissions();
         $wedding_data = $this->createUserAndLogin('admin');
 
-        $task = Tasks::create([
+        $task = Task::create([
             'title' => 'Test Task',
             'description' => 'Test Description',
             'wedding_id' => $wedding_data->id,
@@ -118,7 +118,7 @@ class TasksTest extends TestCase
 
         $wedding_data = $this->createUserAndLogin('admin');
 
-        $task = Tasks::create([
+        $task = Task::create([
             'title' => 'Test Task',
             'description' => 'Test Description',
             'wedding_id' => $wedding_data->id,

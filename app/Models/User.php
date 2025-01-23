@@ -61,6 +61,31 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+
+
+    public function tasks(): BelongsToMany
+    {
+        return $this->belongsToMany(Task::class, 'task_assignees', 'user_id', 'tasks_id');
+    }
+
+
+
+    public function listPermissionsInWedding(Wedding $wedding)
+    {
+        $role = $this->weddingRoles()->where('wedding_id', $wedding->id)->first();
+        if (!$role){
+            return false;
+        }
+
+        $roleModel = Role::find($role->pivot->role_id);
+        if (!$roleModel){
+            return false;
+        }
+
+        return $roleModel->permissions->pluck('name');
+    }
+
+
     public function hasPermissionInWedding(string $permission, Wedding $wedding): bool
     {
         $role = $this->weddingRoles()->where('wedding_id', $wedding->id)->first();
@@ -76,25 +101,5 @@ class User extends Authenticatable
         }
 
         return $roleModel->permissions->contains('name', $permission);
-    }
-
-    public function assignedToTasks(): BelongsToMany
-    {
-        return $this->belongsToMany(TaskAssignee::class, 'user_task_assignees', 'id', 'user_id');
-    }
-
-    public function listPermissionsInWedding(Wedding $wedding)
-    {
-        $role = $this->weddingRoles()->where('wedding_id', $wedding->id)->first();
-        if (!$role){
-            return false;
-        }
-
-        $roleModel = Role::find($role->pivot->role_id);
-        if (!$roleModel){
-            return false;
-        }
-
-        return $roleModel->permissions->pluck('name');
     }
 }

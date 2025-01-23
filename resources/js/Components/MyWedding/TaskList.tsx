@@ -26,6 +26,8 @@ function TaskListContent({columns, handleConfigChange}: {
     const {actions, categories} = useTaskManagerContext();
     const filterContext = useFilterContext();
 
+    console.log('categories', categories);
+
     useEffect(() => {
         filterContext.actions.setOriginalList(categories);
     }, [categories]);

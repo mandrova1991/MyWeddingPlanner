@@ -7,7 +7,7 @@ function TaskToolbar() {
     const toolbar = useTaskToolbarContext();
 
     const handleDeleteOnClick = () => {
-        toolbar.handlers.handleDeleteTask(); // Delete selected Tasks
+        toolbar.handlers.handleDeleteTask(); // Delete selected Task
     }
 
     const handleDuplicateOnClick = () => {

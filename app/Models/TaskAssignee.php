@@ -17,13 +17,13 @@ class TaskAssignee extends Model
         'tasks_id',
     ];
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    public function tasks(): BelongsTo
-    {
-        return $this->belongsTo(Tasks::class);
-    }
+//    public function user(): BelongsTo
+//    {
+//        return $this->belongsTo(User::class);
+//    }
+//
+//    public function tasks(): BelongsTo
+//    {
+//        return $this->belongsTo(Task::class);
+//    }
 }

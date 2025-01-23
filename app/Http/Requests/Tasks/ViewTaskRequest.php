@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Tasks;
 
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -11,6 +11,7 @@ class ViewTaskRequest extends FormRequest
      */
     public function authorize(): bool
     {
+        // TODO Add authorization check
         return false;
     }
 
@@ -22,7 +23,7 @@ class ViewTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // TODO adding validationRules
         ];
     }
 }
