@@ -20,7 +20,6 @@ export const TaskContextProvider = React.memo(({children, initialTask}: { childr
 
     useEffect(() => {
         if (JSON.stringify(task.states.task) !== JSON.stringify(initialTask)) {
-            console.log('Updating task context');
             task.handlers.setTask(memoizedInitialTask);
         }
     }, [memoizedInitialTask]);

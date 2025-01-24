@@ -27,7 +27,6 @@ export const useTaskDatabase = (): useTaskDatabaseReturnType => {
     const createTask = async (task: TaskType) => {
         try{
             const response = await api.post(`/api/${wedding.id}/tasks/create`, task);
-            console.log("response after create task", response);
             return response.data.objectData as TaskType;
         }catch(error){
             throw error;

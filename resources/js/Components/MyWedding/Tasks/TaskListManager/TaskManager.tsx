@@ -88,9 +88,7 @@ function taskManagerReducer(state: TaskCategoryType[], action: any): TaskCategor
 }
 
 function TaskManagerProvider({children, initialState}: {children: React.ReactNode, initialState: TaskCategoryType[]}) {
-    console.log('initialState', initialState);
     const [state, dispatch] = useReducer(taskManagerReducer, initialState);
-    console.log('state', state)
 
     const addTask = useCallback((categoryId: number, task: TaskType) => {
         dispatch({ type: 'ADD_TASK', payload: { categoryId, task } });

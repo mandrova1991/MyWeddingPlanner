@@ -29,7 +29,6 @@ function AssigneeField({value: currentAssignees, onChange, taskId}: TaskFieldPro
     const [users, setUsers] = React.useState<User[]>([]);
     const {weddingUsers: initialUsers} = useWeddingUserContext();
 
-    console.log(currentAssignees)
 
     // prepare users from pageProps and remove users that are already assigned to the task
     useEffect(() => {

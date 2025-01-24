@@ -42,7 +42,6 @@ function Register() {
             headers: {Accept: "application/json"},
         })
             .then(response => {
-                console.log(response);
             })
             .catch(error => {
                 console.log(error.response.data);
