@@ -2,11 +2,17 @@ import React from 'react';
 import {z} from "zod";
 import {useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import {Form, FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/Components/ui/form";
-import {Input} from "@/Components/ui/input";
+import {Form} from "@/Components/ui/form";
 import FormInputField from "@/Components/Fields/FormInputField";
 import {Button} from "@/Components/ui/button";
 import axios from "axios";
+
+type FormValues = {
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+};
 
 const formSchema = z.object({
     name: z.string().min(1, "Fullname is required"),
@@ -19,10 +25,10 @@ const formSchema = z.object({
     });
 
 function Register() {
-    const form = useForm<z.infer<typeof formSchema>>({
+    const form = useForm<FormValues>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            full_name: "",
+            name: "",
             email: "",
             password: "",
             password_confirmation: "",
@@ -31,7 +37,7 @@ function Register() {
 
     const [message, setMessage] = React.useState("");
 
-    function onSubmit(values: z.infer<typeof formSchema>) {
+    function onSubmit(values: FormValues) {
         axios.post(route('api.auth.register'), values, {
             headers: {Accept: "application/json"},
         })
@@ -44,6 +50,7 @@ function Register() {
             })
     }
 
+    // @ts-ignore
     return (
         <div className="registration-form w-[800px]">
             <h2>Register</h2>

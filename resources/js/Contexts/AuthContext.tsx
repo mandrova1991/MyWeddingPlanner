@@ -4,8 +4,8 @@ import {User} from "@/types";
 import api from "@/axios";
 
 type useAuthReturnType = {
+    user: User;
     authenticated: boolean;
-    user: User | never[];
 }
 
 export const AuthContext = React.createContext<useAuthReturnType | null>(null);
@@ -19,7 +19,7 @@ export const useAuthContext = (): useAuthReturnType => {
 }
 
 export const AuthContextProvider = ({children}: { children: React.ReactNode,}) => {
-    const [user, setUser] = useState<User | never[]>([]);
+    const [user, setUser] = useState<User>({} as User);
     const [authenticated, setAuthenticated] = useState(false);
 
     useEffect(() => {
@@ -32,8 +32,14 @@ export const AuthContextProvider = ({children}: { children: React.ReactNode,}) =
         getLoggedInUser();
     }, []);
 
+    const value = {
+        user: user,
+        authenticated: authenticated,
+    }
+
+
     return (
-        <AuthContext.Provider value={{user, authenticated}}>
+        <AuthContext.Provider value={value}>
             {children}
         </AuthContext.Provider>
     )

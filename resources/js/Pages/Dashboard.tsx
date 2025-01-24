@@ -7,7 +7,7 @@ import api from "@/axios";
 // TODO create a better way to init the first wedding.
 
 export default function Dashboard() {
-    const [wedding, setWedding] = useState(null);
+    const [wedding, setWedding] = useState<WeddingType>({} as WeddingType);
 
     useEffect(() => {
         const fetchFirstWedding = async () => {
@@ -22,7 +22,9 @@ export default function Dashboard() {
     return (
         <>
             {wedding && (
-                <DashboardLayout wedding={wedding.id} />
+                <DashboardLayout wedding={wedding.id}>
+                    Dashboard
+                </DashboardLayout>
             )}
         </>
     );

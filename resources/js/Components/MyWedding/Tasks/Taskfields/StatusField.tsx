@@ -11,11 +11,11 @@ const StatusField = React.memo(({value, onChange}: TaskFieldProps) => {
     const [openStatusDropdown, setOpenStatusDropdown] = React.useState(false);
 
     const statusses = [
-        {name: 'todo', title:'To Do', color: "red"},
-        {name: 'planned', title:'Planned', color: "yellow"},
-        {name: 'wait_on_review', title:'Wait on review', color: "purple"},
-        {name: 'completed', title:'Completed', color: "green"},
-    ];
+        { name: 'todo', title: 'To Do', color: 'red' },
+        { name: 'planned', title: 'Planned', color: 'yellow' },
+        { name: 'wait_on_review', title: 'Wait on review', color: 'purple' },
+        { name: 'completed', title: 'Completed', color: 'green' },
+    ] as TaskStatus[];
 
     useEffect(() => {
         const findByKey = (array: any, key: string, value: any) => {
@@ -29,13 +29,13 @@ const StatusField = React.memo(({value, onChange}: TaskFieldProps) => {
 
     useEffect(() => {
         if (shouldUpdateTask){
-            onChange('status', selectedStatus.name ?? 'todo');
+            onChange?.('status', selectedStatus.name ?? 'todo');
             setShouldUpdateTask(false);
         }
     }, [selectedStatus]);
 
 
-    const handleClick = (status) => {
+    const handleClick = (status: TaskStatus) => {
         setShouldUpdateTask(true);
         setOpenStatusDropdown(false);
         setSelectedStatus(status);

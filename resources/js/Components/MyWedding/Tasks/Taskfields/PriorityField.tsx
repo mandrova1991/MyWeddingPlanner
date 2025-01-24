@@ -16,7 +16,7 @@ function PriorityField({value, onChange}: TaskFieldProps) {
 
     const handlePriorityChange = (newValue: string) => {
         setOpenPopover(false);
-        onChange('priority', newValue);
+        onChange?.('priority', newValue);
     }
 
     return (

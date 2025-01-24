@@ -7,6 +7,7 @@ export interface User {
     email_verified_at?: string;
     avatar_initials: string;
     avatar_color: string; // in hexDecimal
+    avatar: string;
 }
 
 export type PageProps<

@@ -1,5 +1,6 @@
 import React from "react";
 import Column from "@/Components/MyWedding/Tasks/Table/TableColumn";
+import {ColumnConfigMap} from "@/types/Table/Column";
 
 /*
     The table header is the component used in the table to see what data it shows underneath it.

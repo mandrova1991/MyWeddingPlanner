@@ -19,14 +19,15 @@ import {useFilterContext} from "@/Contexts/Tasks/FilterContext";
  */
 
 function TaskListContent({columns, handleConfigChange}: {
-    data: TaskCategoryType[],
     columns: ColumnConfigMap,
-    handleConfigChange: () => void
+    handleConfigChange: <T extends keyof ColumnConfigMap, K extends keyof ColumnConfigMap[T]>(
+        field: T,
+        configKey: K,
+        value: ColumnConfigMap[T][K]
+    ) => void;
 }) {
     const {actions, categories} = useTaskManagerContext();
     const filterContext = useFilterContext();
-
-    console.log('categories', categories);
 
     useEffect(() => {
         filterContext.actions.setOriginalList(categories);

@@ -21,7 +21,7 @@ function TaskDialog({ task, taskOpened, setTaskOpened}: {
     const rowClassName = 'h-8 grid grid-cols-2 grid-cols-[130px_1fr] items-center auto-cols-auto';
     const lableClassName = 'mr-2 w-20';
 
-    const handleTaskChange = (datakey: string, value: any) => {
+    const handleTaskChange = (datakey: keyof TaskType, value: any) => {
         const updatedTask = { ...memorizedTask, [datakey]: value };
         updateTask( memorizedTask.category_id, memorizedTask.id, datakey, value );
         taskDatabase.actions.updateTask(updatedTask);

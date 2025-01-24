@@ -22,7 +22,7 @@ export type useTaskToolbarReturnType = {
         removeTask: (taskID: number) => void
     },
     derived: {
-        getNumberOfTasksSelected: () => void
+        getNumberOfTasksSelected: () => number
     },
 }
 

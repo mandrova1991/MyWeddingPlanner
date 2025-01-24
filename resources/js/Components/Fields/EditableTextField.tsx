@@ -56,9 +56,9 @@ const EditableTextField: React.FC<EditableFieldProps> = ({value, directFocus = f
                     className="group/edit w-full h-full flex items-center cursor-pointer text-sm font-medium text-gray-700 dark:text-gray-400"
                 >
                     {clickable ? (
-                        <p className={'hover:underline'} onClick={() => onClick()}>{textEllipsis(value, 35)}</p>
+                        <p className={'hover:underline'} onClick={() => onClick?.()}>{textEllipsis(value, 35)}</p>
                     ):(
-                        <p className={''} onClick={() => onClick()}>{textEllipsis(value, 10)}</p>
+                        <p className={''} onClick={() => onClick?.()}>{textEllipsis(value, 10)}</p>
 
                     )}
 

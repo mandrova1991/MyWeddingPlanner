@@ -7,7 +7,7 @@ import {SquarePlus} from "lucide-react";
     TODO update with database statussen. Also handeling adding a new status should be implemented
  */
 
-function TaskStatusDropdownContent({statussen, onClick}: {statussen: object[], onClick: () => void}) {
+function TaskStatusDropdownContent({statussen, onClick}: {statussen: TaskStatus[], onClick: (status: TaskStatus) => void}) {
 
     const handleAddNewStatus = () => {
         // TODO implent adding a new status

@@ -1,5 +1,4 @@
 import {twMerge} from "tailwind-merge";
-import CellRenderer from "@/Components/MyWedding/Tasks/Helpers/CellRenderer";
 import React from "react";
 import {ColumnConfig} from "@/types/Table/Column";
 

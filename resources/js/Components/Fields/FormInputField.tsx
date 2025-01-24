@@ -3,16 +3,23 @@ import {FormControl, FormField, FormItem, FormLabel, FormMessage} from "@/Compon
 import {Input} from "@/Components/ui/input";
 import {UseFormReturn} from "react-hook-form";
 
+type FormValues = {
+    name: string;
+    email: string;
+    password: string;
+    password_confirmation: string;
+};
+
 interface Props {
-    name: string
+    name: keyof FormValues
     placeholder?: string
     label: string
     className?: string
-    form: UseFormReturn
+    form: UseFormReturn<FormValues>
     type?: "password" | "email" | "text"
     autoComplete?: string
 }
-function FormInputField({ name, placeholder, label, className, form, type, autoComplete}: Props): JSX.Element {
+function FormInputField({ name, placeholder, label, className, form, type, autoComplete}: Props) {
     return (
         <FormField
             control={form.control}

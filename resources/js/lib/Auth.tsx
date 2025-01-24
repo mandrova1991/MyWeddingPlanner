@@ -1,5 +1,6 @@
 import React from "react";
 import {PermissionType} from "@/types/Permissions";
+import {date} from "zod";
 
 /**
     isAuthenticated is a function to check if the token persists in the localStorage.
@@ -47,7 +48,7 @@ export const isTokenExpired = () => {
         return true;
     }
 
-    if (tokenExpiration < now.getTime()) {
+    if (new Date(tokenExpiration) < now) {
         return true;
     }
 

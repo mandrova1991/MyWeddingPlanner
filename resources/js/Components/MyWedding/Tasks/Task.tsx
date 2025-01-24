@@ -15,7 +15,11 @@ import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 
 export interface TaskFieldProps {
     value?: any,
-    onChange?: (datakey: string, value: any) => void
+    onChange?: (datakey: keyof TaskType, value: any) => void
+}
+
+interface DynamicComponentProps {
+    value?: any
 }
 
 const Task = React.memo(({taskData, columns}: { taskData: TaskType, columns: ColumnConfigMap }) => {
@@ -24,8 +28,8 @@ const Task = React.memo(({taskData, columns}: { taskData: TaskType, columns: Col
     const {updateTask} = useTaskManagerFunctionContext();
     const taskDatabase = useTaskDatabase();
 
-    const handleChange = (datakey: string, value: any) => {
-        const updatedTask = { ...memTask, [datakey]: value };
+    const handleChange = (datakey: keyof TaskType, value: any) => {
+        const updatedTask = {...memTask, [datakey]: value};
         updateTask(updatedTask.category_id, updatedTask.id, datakey, value);
         taskDatabase.actions.updateTask(updatedTask);
     }
@@ -41,11 +45,12 @@ const Task = React.memo(({taskData, columns}: { taskData: TaskType, columns: Col
                     const DynamicComponent = column.component;
                     const key = "cat" + memTask.category_id + memTask.id + '_' + column.type;
 
+                    // @ts-ignore
                     return (
                         <div key={key} className="task h-[35px]">
                             <TaskCell columnConfig={column}>
                                 <DynamicComponent
-                                    value={memTask[column.dataKey]}
+                                    value={memTask[column.dataKey as keyof TaskType]}
                                     onChange={handleChange}
                                     onTitleClick={handleTitleClick}
                                     taskId={taskData.id}

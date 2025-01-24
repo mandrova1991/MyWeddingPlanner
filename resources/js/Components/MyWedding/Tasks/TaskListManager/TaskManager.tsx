@@ -17,10 +17,10 @@ interface TaskManagerContextProps {
 
 export type TaskManagerFunctions = {
     addTask: (categoryId: number, task: TaskType) => void;
-    updateTask: (categoryId: number, taskId: number, columnKey: string, value: any) => void;
+    updateTask: (categoryId: number, taskId: number, columnKey: keyof TaskType, value: any) => void;
     deleteTask: (categoryId: number, taskId: number) => void;
     addCategory: (newCategory: TaskCategoryType) => void;
-    updateCategory: (categoryId: number, columnKey: string, value: any) => void;
+    updateCategory: (categoryId: number, columnKey: keyof TaskCategoryType, value: any) => void;
     deleteCategory: (categoryId: number) => void;
     getNewCategoryOrderPosition:() => number;
 }
@@ -96,11 +96,11 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
         dispatch({ type: 'ADD_TASK', payload: { categoryId, task } });
     }, []);
 
-    const updateTask = useCallback((categoryId: string, taskId: string, columnKey: keyof TaskType, value: any) => {
+    const updateTask = useCallback((categoryId: number, taskId: number, columnKey: keyof TaskType, value: any) => {
         dispatch({ type: 'UPDATE_TASK', payload: { categoryId, taskId, columnKey, value } });
     }, []);
 
-    const deleteTask = useCallback((categoryId: number, taskId: string) => {
+    const deleteTask = useCallback((categoryId: number, taskId: number) => {
         dispatch({ type: 'DELETE_TASK', payload: { categoryId,  taskId } });
     }, []);
 
@@ -108,7 +108,7 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
         dispatch({ type: 'ADD_CATEGORY', payload: { newCategory } });
     }, []);
 
-    const updateCategory = useCallback((categoryId: string, columnKey: string, value: any) => {
+    const updateCategory = useCallback((categoryId: number, columnKey: string, value: any) => {
         dispatch({ type: 'UPDATE_CATEGORY', payload: { categoryId, columnKey, value } });
     }, []);
 

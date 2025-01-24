@@ -54,6 +54,7 @@ export const useFilters = (): useFiltersReturnType => {
             const updatedFilters = filters.map((filter) =>
                 filter.dataType === column ? { ...filter, direction: newDirection } : filter
             );
+            // @ts-ignore
             setFilters(updatedFilters);
         }
     };
@@ -89,8 +90,8 @@ export const useFilters = (): useFiltersReturnType => {
             for (const { dataType, direction } of filters) {
                 const multiplier = direction === 'asc' ? 1 : -1;
 
-                const aValue = a[dataType];
-                const bValue = b[dataType];
+                const aValue = a[dataType as keyof TaskType];
+                const bValue = b[dataType as keyof TaskType];
 
                 let comparisonResult = 0;
 

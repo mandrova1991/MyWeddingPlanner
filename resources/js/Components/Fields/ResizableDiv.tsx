@@ -36,8 +36,10 @@ function ResizableDiv({onResize, minWidth, children, columnName}: ResizableDivPr
                 width = minWidth;
             }
             resizableDiv.style.width = `${width}px`;
-            fields.forEach(element => {
-                element.style.width = `${width}px`;
+            fields.forEach((element) => {
+                if (element instanceof HTMLElement){
+                    element.style.width = `${width}px`;
+                }
             })
         }
 

@@ -1,7 +1,6 @@
 import React, {useEffect} from 'react';
 import {Trash2, UserPlus2} from "lucide-react";
 import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCell";
-import {usePage} from "@inertiajs/react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/Components/ui/avatar";
 import {Popover, PopoverContent, PopoverTrigger} from "@/Components/ui/popover";
 import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/Components/ui/tooltip";
@@ -46,10 +45,6 @@ function AssigneeField({value: currentAssignees, onChange, taskId}: TaskFieldPro
             })
         );
 
-        console.log("filteredUser", filteredUsers);
-        console.log("selectedUsers", selectedUsers);
-
-
         setUsers(filteredUsers.sort((a, b) => a.name.localeCompare(b.name)));
         setSelectedUsers(selectedUsers.sort((a, b) => a.name.localeCompare(b.name)));
     }, [currentAssignees]);
@@ -86,7 +81,9 @@ function AssigneeField({value: currentAssignees, onChange, taskId}: TaskFieldPro
             return {id: 0, user_id: assignee.id, tasks_id: taskId};
         })
 
-        onChange('assignees', assigneeList);
+        if (onChange) {
+            onChange('assignees', assigneeList);
+        }
     }
 
     // remove a user from the users list. when its add as assignee.

@@ -6,6 +6,7 @@ import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
 import {useTask} from "@/hooks/use-task";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
+import {ColumnConfig, ColumnConfigMap} from "@/types/Table/Column";
 
 
 /*
@@ -14,7 +15,7 @@ import {useTaskDatabase} from "@/hooks/Database/use-task-database";
  */
 
 
-function NewTaskRow({columns}: { columns: object[] }) {
+function NewTaskRow({columns}: { columns: ColumnConfigMap }) {
     const [creatingNewTask, setCreatingNewTask] = React.useState(false);
     const taskContext = useTask();
     const taskCategoryContext = useTaskCategoryContext();

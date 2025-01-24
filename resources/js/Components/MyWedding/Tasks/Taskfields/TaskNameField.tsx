@@ -6,7 +6,7 @@ import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 const TaskNameField = ({value, onChange, onTitleClick}: TaskFieldProps & { onTitleClick?: () => void }) => {
 
     const handleSave = (newValue: string) => {
-        onChange('title', newValue);
+        onChange?.('title', newValue);
     }
 
     const handleClick = () => {

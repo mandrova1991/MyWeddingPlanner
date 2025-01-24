@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {PermissionType} from "@/types/Permissions";
 import api from "@/axios";
-import {UseWeddingContext, useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 type PermissonContextReturnType = {
     permissions: PermissionType[];

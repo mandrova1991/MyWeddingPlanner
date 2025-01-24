@@ -5,7 +5,7 @@ import TaskListHeader from "@/Components/MyWedding/Tasks/TaskListHeader";
 import {ColumnConfigMap} from "@/types/Table/Column";
 import {TaskCategoryType} from "@/types/Tasks/TaskCategory";
 import TaskToolbar from "@/Components/MyWedding/Tasks/Overlay/TaskToolbar";
-import TaskListContent from "@/Components/MyWedding/TaskList";
+import TaskListContent from "@/Components/MyWedding/Tasks/TaskList";
 import TaskListProviders from "@/Components/MyWedding/Tasks/Providers/TaskListProviders";
 import GripIconField from "@/Components/MyWedding/Tasks/Taskfields/GripIconField";
 import CheckboxField from "@/Components/MyWedding/Tasks/Taskfields/CheckboxField";
@@ -21,7 +21,7 @@ import createdAtField from "@/Components/MyWedding/Tasks/Taskfields/CreatedAtFie
 import UpdatedAtField from "@/Components/MyWedding/Tasks/Taskfields/UpdatedAtField";
 import {TaskType} from "@/types/Tasks/Task";
 import api from "@/axios";
-import {UseWeddingContext, useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 function TaskList() {
     const {wedding} = UseWeddingContext();
@@ -231,6 +231,7 @@ function TaskList() {
         }))
     }
 
+    // @ts-ignore
     return (
             <TaskListProviders data={data}>
                         <div className={"Tasklist-header p-3 shadow-[0_5px_17px_-5px_rgba(0,0,0,0.2)]"}>

@@ -16,13 +16,18 @@ export type useReturnType = {
     },
 }
 
-export const useTaskCategoryDatabase = (): useReturnType => {
+export const useTaskCategoryDatabase = (): {
+    actions: {
+        addNewTaskCategory: (category: TaskCategoryType) => Promise<TaskCategoryType>;
+        deleteTaskCategory: (categoryID: number) => Promise<void>;
+        updateTaskCategory: (category: TaskCategoryType) => Promise<void>
+    }
+} => {
     const {wedding} = UseWeddingContext();
 
     const addNewTaskCategory = async (category: TaskCategoryType) => {
         try {
             const newTaskCategory = await api.post(route('tasksCategory.create', {wedding: wedding.id}), category);
-            console.log(newTaskCategory);
             return newTaskCategory.data.objectData as TaskCategoryType;
         }catch (error){
             console.log("API Error: ", error);

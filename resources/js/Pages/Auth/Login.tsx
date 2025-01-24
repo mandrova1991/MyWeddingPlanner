@@ -9,12 +9,13 @@ import {Input} from "@/Components/ui/input";
 import {Button} from "@/Components/ui/button";
 import {Checkbox} from "@/Components/ui/checkbox";
 import {Link, router} from "@inertiajs/react";
-import axios, {get} from "axios";
+import axios from "axios";
 import api from "@/axios";
 
 const formSchema = z.object({
     email: z.string().email("Please use a valid email address").min(1),
     password: z.string().min(6),
+    remember: z.boolean().default(false),
     //TODO add remember checkbox
 })
 function Login() {
@@ -23,13 +24,14 @@ function Login() {
         defaultValues: {
             email: "",
             password: "",
+            remember: false,
         },
     })
 
     const [message, setMessage] = React.useState("");
 
     function onSubmit(values: z.infer<typeof formSchema>) {
-        axios.post(route('api.auth.login'), values, {
+        api.post(route('api.auth.login'), values, {
             headers: {Accept: "application/json"},
         })
             .then(response => {
@@ -104,7 +106,8 @@ function Login() {
                                             render={({ field }) => (
                                                 <FormItem className="flex items-center gap-2 ">
                                                     <FormControl>
-                                                        <Checkbox {...field} />
+                                                        <Checkbox checked={field.value}
+                                                                  onCheckedChange={(checked) => field.onChange(checked)}/>
                                                     </FormControl>
                                                     <FormLabel>Remember me!</FormLabel>
                                                     <FormMessage />

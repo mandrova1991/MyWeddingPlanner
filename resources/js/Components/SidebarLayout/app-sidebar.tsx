@@ -22,10 +22,8 @@ import {
     SidebarHeader,
     SidebarRail,
 } from "@/Components/ui/sidebar"
-import {usePage} from "@inertiajs/react";
-import {useEffect} from "react";
 import {useAuthContext} from "@/Contexts/AuthContext";
-import {UseWeddingContext, useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     const {wedding} = UseWeddingContext();
@@ -168,7 +166,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     }
 
 
-    const user = useAuthContext();
+    const {user} = useAuthContext();
 
     return (
         <Sidebar collapsible="icon" {...props}>

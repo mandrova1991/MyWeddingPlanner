@@ -7,8 +7,10 @@ import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCel
 import {TaskFieldProps} from "@/Components/MyWedding/Tasks/Task";
 
 function DateField({value: date, onChange}: TaskFieldProps) {
-    const handleChange = (newValue: Date) => {
-        onChange('due_date', newValue);
+    const handleChange = (newValue: Date | undefined) => {
+        if (onChange) {
+            onChange('due_date', newValue);
+        }
     }
 
     return (
@@ -29,7 +31,7 @@ function DateField({value: date, onChange}: TaskFieldProps) {
                     <Calendar
                         mode="single"
                         selected={date}
-                        onSelect={handleChange}
+                        onSelect={(e) => handleChange(e)}
                         initialFocus
                     />
                 </PopoverContent>

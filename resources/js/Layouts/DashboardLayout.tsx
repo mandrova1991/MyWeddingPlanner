@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppSidebar} from "@/components/SidebarLayout/app-sidebar"
+import {AppSidebar} from "@/Components/SidebarLayout/app-sidebar";
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -7,13 +7,13 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import {Separator} from "@/components/ui/separator"
+} from "@/Components/ui/breadcrumb";
+import {Separator} from "@/Components/ui/separator";
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from "@/Components/ui/sidebar";
 import {PermissionContextProvider} from "@/Contexts/Global/PermissonContext";
 import {AuthContextProvider} from "@/Contexts/AuthContext";
 import {WeddingContextProvider} from "@/Contexts/Wedding/WeddingContext";
