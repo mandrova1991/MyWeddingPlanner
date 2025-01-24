@@ -1,3 +1,9 @@
+<?php
+$manifest = json_decode(file_get_contents(public_path('build/manifest.json')), true);
+$react = asset('build/' . $manifest['resources/js/app.tsx']['file']);
+$css = asset('build/' . $manifest['resources/js/app.tsx']['css'][0]);
+?>
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -10,6 +16,9 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+
+{{--        <script type="module" src="{{ $react }}" defer></script>--}}
+{{--        <link rel="stylesheet" href="{{ $css }}">--}}
 
         <!-- Scripts -->
         @routes

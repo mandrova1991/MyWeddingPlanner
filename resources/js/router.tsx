@@ -30,9 +30,10 @@ export const weddingDashboard = createRoute({
         return params.wedding
     },
     component: () => {
-        const wedding: number = weddingRoute.useParams();
+        const weddingParams = weddingRoute.useParams();
+
         return (
-            <DashboardLayout wedding={wedding} >
+            <DashboardLayout wedding={weddingParams.wedding} >
                 <Outlet />
             </DashboardLayout>
         )

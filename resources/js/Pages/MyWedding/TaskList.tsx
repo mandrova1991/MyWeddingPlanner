@@ -28,6 +28,7 @@ function TaskList() {
     const [tasks, setTasks] = useState<TaskType[]>([]);
     const [taskCategories, setTaskCategories] = useState<TaskCategoryType[] | never[]>([]);
 
+
     useEffect(() => {
         const fetchTaskCategories = async () => {
             const response  = await api.get(route("api.taskcategory.index", {wedding: wedding.id}));
@@ -49,8 +50,6 @@ function TaskList() {
             tasks: tasks.filter((task) => task.category_id === category.id)
         }
     });
-
-    console.log('data', data);
 
     const [columns, setColumns] = React.useState<ColumnConfigMap>({
         gripHandle: {
