@@ -1,6 +1,6 @@
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
+import InputError from '@/Components/InertiaComponents/InputError';
+import PrimaryButton from '@/Components/InertiaComponents/PrimaryButton';
+import TextInput from '@/Components/InertiaComponents/TextInput';
 import GuestLayout from '@/Layouts/GuestLayout';
 import { Head, useForm } from '@inertiajs/react';
 import { FormEventHandler } from 'react';
