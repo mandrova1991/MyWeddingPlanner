@@ -15,9 +15,10 @@ const UseTaskBroadcastListener = ({dispatch} : UseTaskBroadcastListenerProps) =>
     const {wedding} = UseWeddingContext();
     const {user} = useAuthContext();
 
+    // TODO use wedding id to set the correct channel. Need to fix a bug first to make sure the wedding id is not undefined
     useEffect(() => {
         echo.channel(`wedding.${1}.tasks`)
-            .listen('TaskCreatedEvent', (e) => {
+            .listen('TaskCreatedEvent', (e: any) => {
                 const excludedUser = e.excludedUser;
                 if (excludedUser.id !== user.id) {
                     const task = e.task as TaskType;

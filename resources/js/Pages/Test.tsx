@@ -6,7 +6,7 @@ function Test() {
 
     useEffect(() => {
         echo.channel(`wedding.${1}.tasks`)
-            .listen('TaskCreatedEvent', (e) => {
+            .listen('TaskCreatedEvent', (e: any) => {
                 console.log(e);
             });
     }, []);
