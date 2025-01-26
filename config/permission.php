@@ -28,6 +28,15 @@ return [
                 'delete_wedding',
                 'view_wedding'
             ]
+        ],
+        'task_messages' => [
+            'name' => 'Task Messages Management',
+            'permissions' => [
+                'create_task_messages',
+                'update_task_messages',
+                'delete_task_messages',
+                'view_task_messages',
+            ]
         ]
     ],
 
@@ -43,7 +52,11 @@ return [
             'view_task_category',
             'update_wedding',
             'delete_wedding',
-            'view_wedding'
+            'view_wedding',
+            'create_task_messages',
+            'update_task_messages',
+            'delete_task_messages',
+            'view_task_messages',
         ],
         'planner' => [
             'create_task',
@@ -55,7 +68,11 @@ return [
             'delete_task_category',
             'view_task_category',
             'update_wedding',
-            'view_wedding'
+            'view_wedding',
+            'create_task_messages',
+            'update_task_messages',
+            'delete_task_messages',
+            'view_task_messages',
         ],
         'wedding_couple' => [
             'create_task',

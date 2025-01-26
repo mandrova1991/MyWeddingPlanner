@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tasks;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\TaskCategories\CreateNewTaskCategoryRequest;
 use App\Http\Requests\TaskCategories\DeleteTaskCategoryRequest;
 use App\Http\Requests\TaskCategories\UpdateTaskCategoryRequest;
@@ -9,8 +10,6 @@ use App\Http\Resources\TaskCategoryResource;
 use App\Http\Responses\ServerResponse;
 use App\Models\TaskCategory;
 use App\Models\Wedding;
-use Exception;
-use Illuminate\Http\Request;
 
 class TaskCategoryController extends Controller
 {

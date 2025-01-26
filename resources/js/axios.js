@@ -1,12 +1,16 @@
 import axios from "axios";
 import {router} from "@inertiajs/react";
+import {echo} from "@/echo.js";
 
 const api = axios.create({
-    headers: {Accept: "application/json"},
+    headers: {
+        Accept: "application/json",
+    },
     withCredentials: true,
 })
 
 api.interceptors.request.use( config => {
+    config.headers['X-Socket-ID'] = echo.socketId();
     const token = localStorage.getItem("token");
     const tokenExpiration = localStorage.getItem("tokenExpiration");
     const sessionExpiration = localStorage.getItem("sessionExpiration");

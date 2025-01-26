@@ -1,6 +1,7 @@
 import {TaskCategoryType} from "@/types/Tasks/TaskCategory";
 import {createContext, useCallback, useContext, useMemo, useReducer} from "react";
 import {TaskType} from "@/types/Tasks/Task";
+import useTaskBroadcastListener from "@/hooks/Tasks/use-task-broadcast-listener";
 
 /*
     The TaskManager is an important part of the taskList.
@@ -25,17 +26,26 @@ export type TaskManagerFunctions = {
     getNewCategoryOrderPosition:() => number;
 }
 
+export interface taskListManagerActionInterface {
+    type: string,
+    payload: any
+}
+
 const TaskManagerContext = createContext<TaskManagerContextProps | undefined>(undefined);
 
-function taskManagerReducer(state: TaskCategoryType[], action: any): TaskCategoryType[] {
+function taskManagerReducer(state: TaskCategoryType[], action: taskListManagerActionInterface): TaskCategoryType[] {
     switch (action.type) {
         case 'ADD_TASK': {
-            const { categoryId, task} = action.payload;
-            return state.map((category) =>
+            const { categoryId, task } = action.payload;
+            console.log(action);
+            console.log('Voeg taak toe:', task, 'aan categorie:', categoryId);
+            const newState = state.map((category) =>
                 categoryId === category.id
-                    ? {...category, tasks: [...category.tasks, task]}
+                    ? { ...category, tasks: [...category.tasks, task] }
                     : category
-            )
+            );
+            console.log('Nieuwe state:', newState);
+            return newState;
         }
 
         case 'UPDATE_TASK': {
@@ -89,6 +99,7 @@ function taskManagerReducer(state: TaskCategoryType[], action: any): TaskCategor
 
 function TaskManagerProvider({children, initialState}: {children: React.ReactNode, initialState: TaskCategoryType[]}) {
     const [state, dispatch] = useReducer(taskManagerReducer, initialState);
+    useTaskBroadcastListener({dispatch});
 
     const addTask = useCallback((categoryId: number, task: TaskType) => {
         dispatch({ type: 'ADD_TASK', payload: { categoryId, task } });
@@ -122,6 +133,8 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
             0
         );
     }
+
+    console.log(state)
 
     const value = useMemo(() => ({
         categories: state,

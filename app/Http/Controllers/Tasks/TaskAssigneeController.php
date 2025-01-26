@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Tasks;
 
+use App\Http\Controllers\Controller;
 use App\Models\TaskAssignee;
 use Illuminate\Http\Request;
 

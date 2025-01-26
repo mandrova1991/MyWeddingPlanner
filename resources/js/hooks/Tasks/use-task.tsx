@@ -1,16 +1,17 @@
 import React, {useContext, useMemo, useState} from 'react';
 import {TaskType} from "@/types/Tasks/Task";
-import {usePage} from "@inertiajs/react";
-import api from "@/axios";
-import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
-import Task from "@/Components/MyWedding/Tasks/Task";
-import {format} from "date-fns";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
 import {useAuthContext} from "@/Contexts/AuthContext";
 import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
-// Use Task hook is used to provide function for task. This could be updated to task data or even saving te task to the backend.
+/**
+ * This component is still used in the current codebase. But the plan is to remove this because its better to
+ * move towards component that have a value input. Which is already implemented.
+ *
+ * Most code is not used anymore.
+ * TODO Remove this so less code is needed.
+ */
 
 export type useTaskReturnType = {
     states: {

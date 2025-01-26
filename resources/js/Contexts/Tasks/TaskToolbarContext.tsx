@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {useTaskToolbar, useTaskToolbarReturnType} from "@/hooks/use-task-toolbar";
+import {useTaskToolbar, useTaskToolbarReturnType} from "@/hooks/Tasks/use-task-toolbar";
 
 export const TaskToolbarContext = React.createContext<useTaskToolbarReturnType | null>(null);
 

@@ -3,7 +3,7 @@ import TableContentCell from "@/Components/MyWedding/Tasks/Table/TableContentCel
 import {PlusCircle} from "lucide-react";
 import EditableTextField from "@/Components/Fields/EditableTextField";
 import {useTaskCategoryContext} from "@/Contexts/Tasks/TaskCategoryContext";
-import {useTask} from "@/hooks/use-task";
+import {useTask} from "@/hooks/Tasks/use-task";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 import {ColumnConfig, ColumnConfigMap} from "@/types/Table/Column";

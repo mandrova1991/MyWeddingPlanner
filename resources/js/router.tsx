@@ -3,6 +3,7 @@ import Dashboard from "@/Pages/Dashboard";
 import Login from "@/Pages/Auth/Login";
 import DashboardLayout from "@/Layouts/DashboardLayout";
 import TaskList from "@/Pages/MyWedding/TaskList";
+import Test from "@/Pages/Test";
 
 export const rootRoute = createRootRoute();
 
@@ -44,4 +45,11 @@ export const weddingTaskListRoute = createRoute({
     getParentRoute: () => weddingDashboard,
     path: "task-list",
     component: TaskList
+})
+
+
+export const testListRoute = createRoute({
+    getParentRoute: () => rootRoute,
+    path: '/test',
+    component: Test
 })

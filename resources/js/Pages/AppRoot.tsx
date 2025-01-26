@@ -1,6 +1,14 @@
 import React from 'react';
 import {createRootRoute, createRouter, RouterProvider} from "@tanstack/react-router";
-import {dashboardRoute, loginRoute, rootRoute, weddingDashboard, weddingRoute, weddingTaskListRoute} from "@/router";
+import {
+    dashboardRoute,
+    loginRoute,
+    rootRoute,
+    testListRoute,
+    weddingDashboard,
+    weddingRoute,
+    weddingTaskListRoute
+} from "@/router";
 
 
 const routeTree  = rootRoute.addChildren({
@@ -8,7 +16,8 @@ const routeTree  = rootRoute.addChildren({
     loginRoute,
     weddingRoute,
     weddingDashboard,
-    weddingTaskListRoute
+    weddingTaskListRoute,
+    testListRoute
 })
 
 export const router = createRouter({

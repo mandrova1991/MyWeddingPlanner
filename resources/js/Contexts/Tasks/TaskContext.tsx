@@ -1,5 +1,5 @@
 import React, {useContext, useEffect} from 'react';
-import {useTask, useTaskReturnType} from "@/hooks/use-task";
+import {useTask, useTaskReturnType} from "@/hooks/Tasks/use-task";
 import {TaskType} from "@/types/Tasks/Task";
 
 

@@ -22,32 +22,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call([
-            RolePermissionSeeder::class,
-        ]);
-
         Wedding::create([
             'name' => 'Wedding 1',
             'date' => '2019-01-01',
         ]);
 
-        User::factory()->create([
-            'name' => 'Nick Verbeek',
-            'email' => 'nick@home.nl',
-            'password' => Hash::make('password')
-        ])->each(function ($user) {
-            UserWeddingRole::factory()->create([
-                'user_id' => $user->id,
-                'role_id' => 1
-            ]);
-        });
+        $this->call([
+            RolePermissionSeeder::class,
+            UserSeeder::class,
+        ]);
 
-        User::factory(10)->create()
-            ->each(function ($user) {
-                UserWeddingRole::factory(1)->create([
-                    'user_id' => $user->id,
-                ]);
-            });
+
+
+
 
         TaskCategory::factory(3)
             ->create()

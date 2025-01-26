@@ -1,8 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\TaskCategoryController;
-use App\Http\Controllers\TasksController;
+use App\Http\Controllers\Tasks\TaskCategoryController;
+use App\Http\Controllers\Tasks\TasksController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
