@@ -20,7 +20,7 @@ const UseTaskBroadcastListener = ({dispatch} : UseTaskBroadcastListenerProps) =>
         echo.channel(`wedding.${1}.tasks`)
             .listen('TaskCreatedEvent', (e: any) => {
                 const excludedUser = e.excludedUser;
-                if (excludedUser.id !== user.id) {
+                if (excludedUser !== user.id) {
                     const task = e.task as TaskType;
                     const categoryId =  task.category_id;
                     dispatch({ type: 'ADD_TASK', payload: { categoryId , task } });
