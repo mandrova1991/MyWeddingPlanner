@@ -64,8 +64,13 @@ class TasksController extends Controller
 
     public function destroy(DeleteTaskRequest $request, Wedding $wedding, Task $task)
     {
+        $taskData = [
+            'id' => $task->id,
+            'category_id' => $task->category_id,
+            'wedding_id' => $task->wedding_id,
+        ];
+        BroadcastTaskEventJob::dispatch(new TaskDeletedEvent($taskData, auth()->id()));
         $task->delete();
-        BroadcastTaskEventJob::dispatch(new TaskDeletedEvent($task, auth()->id()));
 
         return ServerResponse::basicResponse(
             'Task deleted',

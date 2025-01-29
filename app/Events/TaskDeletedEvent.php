@@ -2,8 +2,6 @@
 
 namespace App\Events;
 
-use App\Http\Resources\TaskResource;
-use App\Models\Task;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
@@ -14,24 +12,26 @@ class TaskDeletedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public function __construct(
-        public Task $task,
-        public $excludedUser
-    )
+    public array $task;
+    public $excludedUser;
+
+    public function __construct($task, $excludedUser)
     {
+        $this->task = $task;
+        $this->excludedUser = $excludedUser;
     }
 
     public function broadcastOn(): array
     {
         return [
-            new Channel('wedding' . $this->task->wedding_id . '.tasks' )
+            new Channel('wedding.' . $this->task['wedding_id'] . '.tasks')
         ];
     }
 
     public function broadcastWith(): array
     {
         return [
-            'task' => new TaskResource($this->task),
+            'task' => $this->task,
             'excludedUser' => $this->excludedUser
         ];
     }

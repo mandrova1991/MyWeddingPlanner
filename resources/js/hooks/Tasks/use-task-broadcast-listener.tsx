@@ -19,14 +19,29 @@ const UseTaskBroadcastListener = ({dispatch} : UseTaskBroadcastListenerProps) =>
 
     // TODO use wedding id to set the correct channel. Need to fix a bug first to make sure the wedding id is not undefined
     useEffect(() => {
+        const applyChangesToTaskList = (e: any, type: string, payload: {}) => {
+            const excludedUser = e.excludedUser;
+            if (excludedUser !== user.id) {
+                dispatch({ type: type, payload: payload });
+            }
+        }
+
         echo.channel(`wedding.${1}.tasks`)
             .listen('TaskCreatedEvent', (e: any) => {
-                const excludedUser = e.excludedUser;
-                if (excludedUser !== user.id) {
-                    const task = e.task as TaskType;
-                    const categoryId =  task.category_id;
-                    dispatch({ type: 'ADD_TASK', payload: { categoryId , task } });
-                }
+                const task = e.task as TaskType;
+                const categoryId =  task.category_id;
+                applyChangesToTaskList(e, 'ADD_TASK', {categoryId, task});
+            })
+            .listen('TaskUpdatedEvent', (e: any) => {
+                const task = e.task as TaskType;
+                const categoryId =  task.category_id;
+                applyChangesToTaskList(e, 'UPDATE_TASK_WITH_TASK', {categoryId, task});
+            })
+            .listen('TaskDeletedEvent', (e: any) => {
+                const task = e.task as TaskType;
+                const taskId = task.id;
+                const categoryId =  task.category_id;
+                applyChangesToTaskList(e, 'DELETE_TASK', {categoryId, taskId});
             });
     }, []);
 }

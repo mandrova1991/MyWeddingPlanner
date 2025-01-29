@@ -4,12 +4,13 @@ namespace App\Broadcasting;
 
 use App\Models\User;
 use App\Models\Wedding;
+use Illuminate\Broadcasting\Channel;
 
-class WeddingTasksChannel
+class WeddingTasksChannel extends Channel
 {
-    public function __construct()
+    public function __construct($name)
     {
-
+        $this->name = $name;
     }
 
     public function join(User $user, Wedding $wedding)

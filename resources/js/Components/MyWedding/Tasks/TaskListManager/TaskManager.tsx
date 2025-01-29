@@ -37,14 +37,11 @@ function taskManagerReducer(state: TaskCategoryType[], action: taskListManagerAc
     switch (action.type) {
         case 'ADD_TASK': {
             const { categoryId, task } = action.payload;
-            console.log(action);
-            console.log('Voeg taak toe:', task, 'aan categorie:', categoryId);
             const newState = state.map((category) =>
                 categoryId === category.id
                     ? { ...category, tasks: [...category.tasks, task] }
                     : category
             );
-            console.log('Nieuwe state:', newState);
             return newState;
         }
 
@@ -62,6 +59,23 @@ function taskManagerReducer(state: TaskCategoryType[], action: taskListManagerAc
                     }
                     : category
             )
+        }
+
+        case 'UPDATE_TASK_WITH_TASK': {
+            const {categoryId, task} = action.payload;
+            const newState = state.map((category) =>
+                categoryId === category.id
+                    ? {
+                        ...category,
+                        tasks: category.tasks.map((catTask ) =>
+                            catTask.id === task.id
+                                ? task
+                                : catTask
+                        )
+                    }
+                    : category
+            );
+            return newState;
         }
 
         case 'DELETE_TASK': {
@@ -133,8 +147,6 @@ function TaskManagerProvider({children, initialState}: {children: React.ReactNod
             0
         );
     }
-
-    console.log(state)
 
     const value = useMemo(() => ({
         categories: state,

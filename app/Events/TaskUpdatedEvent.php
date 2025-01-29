@@ -14,17 +14,19 @@ class TaskUpdatedEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public function __construct(
-        public Task $task,
-        public $excludedUser
-    )
+    public Task $task;
+    public $excludedUser;
+
+    public function __construct(Task $task, $excludedUser)
     {
+        $this->task = $task;
+        $this->excludedUser = $excludedUser;
     }
 
     public function broadcastOn(): array
     {
         return [
-            new Channel('wedding' . $this->task->wedding_id . '.tasks' )
+            new Channel('wedding.' . $this->task->wedding_id . '.tasks')
         ];
     }
 
