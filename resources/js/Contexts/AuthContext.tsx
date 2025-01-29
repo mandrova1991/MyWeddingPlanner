@@ -21,12 +21,14 @@ export const useAuthContext = (): useAuthReturnType => {
 export const AuthContextProvider = ({children}: { children: React.ReactNode,}) => {
     const [user, setUser] = useState<User>({} as User);
     const [authenticated, setAuthenticated] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const getLoggedInUser = async () => {
             const response = await api.get(route("api.auth.user"));
             setUser(response.data);
             setAuthenticated(true);
+            setLoading(false);
         }
 
         getLoggedInUser();
@@ -37,10 +39,13 @@ export const AuthContextProvider = ({children}: { children: React.ReactNode,}) =
         authenticated: authenticated,
     }
 
+    // if (loading) {
+    //     return <div>Laden...</div>; // Laadindicator
+    // }
 
     return (
         <AuthContext.Provider value={value}>
-            {children}
+            {!loading && children}
         </AuthContext.Provider>
     )
 }

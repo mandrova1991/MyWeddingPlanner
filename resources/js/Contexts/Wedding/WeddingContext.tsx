@@ -3,7 +3,7 @@ import api from "@/axios";
 import {log} from "util";
 
 export type UseWeddingContextReturnType = {
-    wedding: {id: number};
+    wedding: WeddingType;
 }
 
 export const WeddingContext = createContext<UseWeddingContextReturnType | undefined>(undefined);
@@ -17,23 +17,29 @@ export const UseWeddingContext = (): UseWeddingContextReturnType => {
 }
 
 export const WeddingContextProvider = ({children, weddingId}: { children: React.ReactNode, weddingId: number }) => {
-    console.log('weddingId', weddingId);
-    // const [wedding, setWedding] = useState<any>([]);
+    // console.log('weddingId', weddingId);
+    const [wedding, setWedding] = useState<WeddingType>({} as WeddingType);
 
-    // useEffect(() => {
-    //     const getWedding = async () => {
-    //         const response = await api.get(route('api.wedding.show', {wedding: weddingId}));
-    //         setWedding(response.data);
-    //     }
-    //
-    //     getWedding();
-    // }, []);
+    console.log(weddingId)
 
-    // console.log(wedding);
+    useEffect(() => {
+        const getWedding = async () => {
+            const response = await api.get(route('api.wedding.show', {wedding: weddingId}));
+            setWedding(response.data);
+        }
+
+        if (weddingId) {
+            getWedding();
+        }
+
+    }, [weddingId]);
 
     return (
-        <WeddingContext.Provider value={{wedding: {id: weddingId}}}>
-            {children}
+        <WeddingContext.Provider value={{wedding}}>
+            {wedding.id && (
+                children
+            )}
+
         </WeddingContext.Provider>
     )
 }

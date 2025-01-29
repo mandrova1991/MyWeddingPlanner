@@ -15,6 +15,8 @@ const UseTaskBroadcastListener = ({dispatch} : UseTaskBroadcastListenerProps) =>
     const {wedding} = UseWeddingContext();
     const {user} = useAuthContext();
 
+    console.log(user)
+
     // TODO use wedding id to set the correct channel. Need to fix a bug first to make sure the wedding id is not undefined
     useEffect(() => {
         echo.channel(`wedding.${1}.tasks`)
