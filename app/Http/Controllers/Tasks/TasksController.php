@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Tasks;
 
+use App\Events\TaskCreatedEvent;
+use App\Events\TaskDeletedEvent;
+use App\Events\TaskUpdatedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tasks\DeleteTaskRequest;
 use App\Http\Requests\Tasks\StoreTaskRequest;
@@ -9,6 +12,7 @@ use App\Http\Requests\Tasks\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Http\Responses\ServerResponse;
 use App\Jobs\BroadcastTaskCreatedEventJob;
+use App\Jobs\BroadcastTaskEventJob;
 use App\Models\Task;
 use App\Models\Wedding;
 
@@ -26,9 +30,8 @@ class TasksController extends Controller
     public function store(StoreTaskRequest $request, Wedding $wedding)
     {
         $validatedData = $request->validated();
-
         $task = Task::create($validatedData);
-        BroadcastTaskCreatedEventJob::dispatch($task, auth()->id());
+        BroadcastTaskEventJob::dispatch(new TaskCreatedEvent($task, auth()->id()));
 
         return ServerResponse::basicResponse(
             'Task created',
@@ -47,10 +50,10 @@ class TasksController extends Controller
     public function update(UpdateTaskRequest $request, Wedding $wedding, Task $task)
     {
         $data = $request->validated();
-
         $task->update($data);
         $assignees = collect($request->input('assignees'))->pluck('user_id')->toArray();
         $task->assignees()->sync($assignees);
+        BroadcastTaskEventJob::dispatch(new TaskUpdatedEvent($task, auth()->id()));
 
         return ServerResponse::basicResponse(
             'Task updated',
@@ -62,6 +65,7 @@ class TasksController extends Controller
     public function destroy(DeleteTaskRequest $request, Wedding $wedding, Task $task)
     {
         $task->delete();
+        BroadcastTaskEventJob::dispatch(new TaskDeletedEvent($task, auth()->id()));
 
         return ServerResponse::basicResponse(
             'Task deleted',

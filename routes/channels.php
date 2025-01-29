@@ -1,5 +1,6 @@
 <?php
 
+use App\Broadcasting\WeddingTasksChannel;
 use App\Models\User;
 use App\Models\Wedding;
 use Illuminate\Support\Facades\Broadcast;
@@ -12,6 +13,4 @@ Broadcast::channel('test', function () {
     return true;
 });
 
-Broadcast::channel('wedding.${wedding_id}.tasks', function (User $user, Wedding $wedding) {
-    return $user->hasPermissionInWedding('update_task', $wedding);
-});
+Broadcast::channel('wedding.${wedding_id}.tasks', WeddingTasksChannel::class );
