@@ -15,8 +15,17 @@
   <li>Upload guest photos when you want and relive your perfectly planned day</li>
 </ul>
 
-<h2>Stack:</h2>
-<p>The stack consists of Laravel 11, React 18, and TailwindCSS. For the UI, shadCN is used to create the UI in a simple and easy way.</p>
+<h2>Stack:</h2> 
+<p>The stack consists of the following technologies:</p> 
+<ul> 
+    <li>Laravel 11</li> 
+    <li>React 18</li> 
+    <li>TailwindCSS</li> 
+    <li>shadCN (UI Components)</li> 
+    <li>TanStack Router</li> 
+    <li>Laravel Reverb (WebSocket)</li> 
+    <li>Laravel Echo (Real-time Broadcasting)</li> 
+</ul>
 
 <h2>Current State:</h2>
 <p>As of now, we are working on the TaskSystem. Tasks can be created, updated, and deleted in or from their category. Categories can be created, updated, and deleted. Various information is already implemented and gets updated. An overlay for the task has been made but is in early development.</p>
