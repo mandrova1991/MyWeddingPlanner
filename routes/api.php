@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Tasks\TaskCategoryController;
+use App\Http\Controllers\Tasks\TaskMessageController;
 use App\Http\Controllers\Tasks\TasksController;
+use Illuminate\Broadcasting\BroadcastController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +20,8 @@ Route::get('/refresh_token', [AuthController::class, 'refresh_token'])->name('ap
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/broadcasting/auth', [BroadcastController::class, 'authenticate']);
+
     // Permissions
     Route::get('wedding/{wedding}/permissions', [\App\Http\Controllers\PermissionController::class, 'index'])->name('api.wedding.auth.permissions');
 
@@ -32,6 +36,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('{wedding}/tasks/create', [TasksController::class, 'store'])->name('tasks.store');
     Route::put('{wedding}/tasks/update/{task}', [TasksController::class, 'update'])->name('tasks.update');
     Route::delete('{wedding}/tasks/destroy/{task}', [TasksController::class, 'destroy'])->name('tasks.destroy');
+
+    // All Task Message Related Routes
+    Route::get('wedding/{wedding}/tasks/{task}/messages', [TaskMessageController::class, 'index'])->name('api.tasks.messages');
+    Route::post('wedding/{wedding}/tasks/{task}/messages', [TaskMessageController::class, 'store'])->name('api.tasks.messages.create');
+    Route::put('wedding/{wedding}/tasks/{task}/messages', [TaskMessageController::class, 'update'])->name('api.tasks.messages.update');
+    Route::delete('wedding/{wedding}/tasks/{task}/messages/{message}', [TaskMessageController::class, 'destroy'])->name('api.tasks.messages.destroy');
 
     // All TaskCategory related Routes
     Route::get('wedding/{wedding}/tasksCategory', [TaskCategoryController::class, 'index'])->name('api.taskcategory.index');

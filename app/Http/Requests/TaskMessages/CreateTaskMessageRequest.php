@@ -9,8 +9,8 @@ class CreateTaskMessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'task_id'    => ['required', 'exists:tasks'],
-            'user_id'    => ['required', 'exists:users'],
+            'task_id'    => ['required', 'exists:tasks,id'],
+            'user_id'    => ['required', 'exists:users,id'],
             'message'    => ['required'],
             'replied_to' => ['nullable', 'integer'],
         ];
@@ -21,6 +21,6 @@ class CreateTaskMessageRequest extends FormRequest
         $wedding = $this->route('wedding');
         $user = auth()->user();
 
-        return $user->hasPermissionInWedding('create_task_message', $wedding);
+        return $user->hasPermissionInWedding('create_task_messages', $wedding);
     }
 }

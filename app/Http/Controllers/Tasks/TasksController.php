@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers\Tasks;
 
-use App\Events\TaskCreatedEvent;
-use App\Events\TaskDeletedEvent;
-use App\Events\TaskUpdatedEvent;
+use App\Events\Task\TaskCreatedEvent;
+use App\Events\Task\TaskDeletedEvent;
+use App\Events\Task\TaskUpdatedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tasks\DeleteTaskRequest;
 use App\Http\Requests\Tasks\StoreTaskRequest;
 use App\Http\Requests\Tasks\UpdateTaskRequest;
 use App\Http\Resources\TaskResource;
 use App\Http\Responses\ServerResponse;
-use App\Jobs\BroadcastTaskCreatedEventJob;
 use App\Jobs\BroadcastTaskEventJob;
 use App\Models\Task;
 use App\Models\Wedding;

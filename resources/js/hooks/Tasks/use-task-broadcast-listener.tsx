@@ -3,7 +3,7 @@ import {
     taskListManagerActionInterface,
 } from "@/Components/MyWedding/Tasks/TaskListManager/TaskManager";
 import {echo} from "@/echo";
-import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 import {TaskType} from "@/types/Tasks/Task";
 import {useAuthContext} from "@/Contexts/AuthContext";
 
@@ -12,7 +12,7 @@ interface UseTaskBroadcastListenerProps {
 }
 
 const UseTaskBroadcastListener = ({dispatch} : UseTaskBroadcastListenerProps) => {
-    const {wedding} = UseWeddingContext();
+    const {wedding} = useWeddingContext();
     const {user} = useAuthContext();
 
     console.log(user)

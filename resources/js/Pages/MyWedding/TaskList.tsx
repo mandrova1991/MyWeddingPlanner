@@ -21,10 +21,10 @@ import createdAtField from "@/Components/MyWedding/Tasks/Taskfields/CreatedAtFie
 import UpdatedAtField from "@/Components/MyWedding/Tasks/Taskfields/UpdatedAtField";
 import {TaskType} from "@/types/Tasks/Task";
 import api from "@/axios";
-import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 function TaskList() {
-    const {wedding} = UseWeddingContext();
+    const {wedding} = useWeddingContext();
     const [tasks, setTasks] = useState<TaskType[]>([]);
     const [taskCategories, setTaskCategories] = useState<TaskCategoryType[] | never[]>([]);
 

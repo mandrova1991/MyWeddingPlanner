@@ -1,16 +1,17 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {PermissionType} from "@/types/Permissions";
 import api from "@/axios";
-import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 type PermissonContextReturnType = {
     permissions: PermissionType[];
     loading: boolean;
+    hasPermissionTo: (permission: PermissionType) => boolean;
 }
 
-export const PermissionContext = React.createContext<PermissonContextReturnType>({permissions: [], loading: true});
+export const PermissionContext = React.createContext<PermissonContextReturnType | undefined>(undefined);
 
-export const UsePermissionContext = (): PermissonContextReturnType => {
+export const usePermissionContext = (): PermissonContextReturnType => {
     const context = useContext(PermissionContext);
     if (context === undefined) {
         throw new Error('usePermissionContext must be used within a TaskCategoryProvider');
@@ -19,7 +20,7 @@ export const UsePermissionContext = (): PermissonContextReturnType => {
 }
 
 export const PermissionContextProvider = ({children}: { children: React.ReactNode}) => {
-    const {wedding} = UseWeddingContext();
+    const {wedding} = useWeddingContext();
     const [permissions, setPermissions] = useState<PermissionType[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -33,8 +34,16 @@ export const PermissionContextProvider = ({children}: { children: React.ReactNod
         fetchPermissions();
     }, []);
 
+    const hasPermissionTo = (permission: PermissionType) => {
+        if (permissions.includes(permission)){
+            return true;
+        }
+
+        return false;
+    }
+
     return (
-        <PermissionContext.Provider value={{permissions, loading}}>
+        <PermissionContext.Provider value={{permissions, loading, hasPermissionTo}}>
             {children}
         </PermissionContext.Provider>
     )

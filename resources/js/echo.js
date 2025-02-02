@@ -11,4 +11,11 @@ export const echo = new Echo({
     wssPort: import.meta.env.VITE_REVERB_PORT,
     forceTLS: (import.meta.env.VITE_REVERB_SCHEME ?? 'https') === 'https',
     enabledTransports: ['ws', 'wss'],
+    authEndpoint: "/api/broadcasting/auth",
+    auth: {
+        headers: {
+            Authorization: "Bearer " + localStorage.getItem("token")
+        },
+    },
+
 });

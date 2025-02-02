@@ -23,10 +23,10 @@ import {
     SidebarRail,
 } from "@/Components/ui/sidebar"
 import {useAuthContext} from "@/Contexts/AuthContext";
-import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-    const {wedding} = UseWeddingContext();
+    const {wedding} = useWeddingContext();
     const data = {
         teams: [
             {

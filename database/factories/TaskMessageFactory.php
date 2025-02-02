@@ -3,25 +3,25 @@
 namespace Database\Factories;
 
 use App\Models\Task;
-use App\Models\TaskMassage;
+use App\Models\TaskMessage;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Carbon;
 
-class TaskMassageFactory extends Factory
+class TaskMessageFactory extends Factory
 {
-    protected $model = TaskMassage::class;
+    protected $model = TaskMessage::class;
 
     public function definition(): array
     {
         return [
-            'message'    => $this->faker->word(),
-            'replied_to' => $this->faker->randomNumber(),
+            'message'    => $this->faker->sentence(20),
+            'replied_to' => null,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 
             'task_id' => Task::factory(),
-            'user_id' => User::factory(),
+            'user_id' => User::inRandomOrder()->first(),
         ];
     }
 }

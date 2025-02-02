@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\TaskMassage;
+use App\Models\TaskMessage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin TaskMassage */
+/** @mixin TaskMessage */
 class TaskMassageResource extends JsonResource
 {
     public function toArray(Request $request): array

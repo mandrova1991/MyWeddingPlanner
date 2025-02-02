@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\TaskAssignee;
 use App\Models\TaskCategory;
 use App\Models\Task;
+use App\Models\TaskMessage;
 use App\Models\User;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -47,7 +48,13 @@ class DatabaseSeeder extends Seeder
                         'order' => function ($task) use (&$orderValues) {
                             return array_pop($orderValues);
                         },
+                    ])
+                ->each(function ($task) {
+                    TaskMessage::factory(3)
+                    ->create([
+                        'task_id' => $task->id,
                     ]);
+                });
             });
 
         TaskAssignee::factory(5)->create();

@@ -1,7 +1,7 @@
 import {TaskCategoryType} from "@/types/Tasks/TaskCategory";
 import api from "@/axios";
 import {usePage} from "@inertiajs/react";
-import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 /*
     This hook is created to handle all the api interactions regarding the database for TaskCategories
@@ -23,7 +23,7 @@ export const useTaskCategoryDatabase = (): {
         updateTaskCategory: (category: TaskCategoryType) => Promise<void>
     }
 } => {
-    const {wedding} = UseWeddingContext();
+    const {wedding} = useWeddingContext();
 
     const addNewTaskCategory = async (category: TaskCategoryType) => {
         try {

@@ -3,7 +3,7 @@ import {TaskType} from "@/types/Tasks/Task";
 import {useTaskDatabase} from "@/hooks/Database/use-task-database";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
 import {useAuthContext} from "@/Contexts/AuthContext";
-import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 /**
  * This component is still used in the current codebase. But the plan is to remove this because its better to
@@ -61,7 +61,7 @@ export const useTask = (initialTask?: TaskType): useTaskReturnType => {
     const taskDatabase = useTaskDatabase();
     const {updateTask } = useTaskManagerFunctionContext();
     const {user: authUser} = useAuthContext();
-    const {wedding} = UseWeddingContext();
+    const {wedding} = useWeddingContext();
 
 
     // Update the task. It needs a key and a value.

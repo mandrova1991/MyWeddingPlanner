@@ -16,6 +16,11 @@ export type PermissionType =
     'create_wedding'|
     'update_wedding'|
     'delete_wedding'|
-    'view_wedding'
+    'view_wedding'|
 
+    // task messages
+    'create_task_messages' |
+    'update_task_messages' |
+    'delete_task_messages' |
+    'view_task_messages'
     ;

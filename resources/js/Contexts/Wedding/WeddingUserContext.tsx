@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {User} from "@/types";
 import api from "@/axios";
-import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 
 type useWeddingUserReturn = {
     weddingUsers: User[];
@@ -19,7 +19,7 @@ export const useWeddingUserContext = (): useWeddingUserReturn => {
 }
 
 export const WeddingUserContextProvider = ({children}: { children: React.ReactNode }) => {
-    const {wedding} = UseWeddingContext();
+    const {wedding} = useWeddingContext();
     const [weddingUsers, setWeddingUsers] = React.useState<User[]>([]);
     const [loading, setLoading] = useState(true);
 

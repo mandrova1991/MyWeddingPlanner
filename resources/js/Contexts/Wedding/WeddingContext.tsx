@@ -8,7 +8,7 @@ export type UseWeddingContextReturnType = {
 
 export const WeddingContext = createContext<UseWeddingContextReturnType | undefined>(undefined);
 
-export const UseWeddingContext = (): UseWeddingContextReturnType => {
+export const useWeddingContext = (): UseWeddingContextReturnType => {
     const context = useContext(WeddingContext);
     if (context === undefined) {
         throw new Error('useContext must be used within a WeddingContextProvider');

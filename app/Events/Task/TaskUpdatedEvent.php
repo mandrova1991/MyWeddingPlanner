@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace App\Events\Task;
 
 use App\Http\Resources\TaskResource;
 use App\Models\Task;

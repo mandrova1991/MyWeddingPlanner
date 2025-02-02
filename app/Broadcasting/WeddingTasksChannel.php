@@ -8,13 +8,12 @@ use Illuminate\Broadcasting\Channel;
 
 class WeddingTasksChannel extends Channel
 {
-    public function __construct($name)
+    public function __construct()
     {
-        $this->name = $name;
     }
 
     public function join(User $user, Wedding $wedding)
     {
-        return $user->hasPermissionInWedding('update-task', $wedding->id);
+        return $user->hasPermissionInWedding('update-task', $wedding);
     }
 }

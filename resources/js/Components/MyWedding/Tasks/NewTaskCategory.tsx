@@ -6,7 +6,7 @@ import {Input} from "@/Components/ui/input";
 import {useTaskCategoryDatabase} from "@/hooks/Database/use-task-category-database";
 import {TaskCategoryType} from "@/types/Tasks/TaskCategory";
 import {useTaskManagerFunctionContext} from "@/Contexts/Tasks/TaskManagerFunctionContext";
-import {UseWeddingContext} from "@/Contexts/Wedding/WeddingContext";
+import {useWeddingContext} from "@/Contexts/Wedding/WeddingContext";
 import {useAuthContext} from "@/Contexts/AuthContext";
 
 
@@ -21,7 +21,7 @@ function NewTaskCategory({buttonClassName}: { buttonClassName?: string }) {
 
     const taskManager = useTaskManagerFunctionContext();
     const {addCategory, updateCategory} = useTaskManagerFunctionContext();
-    const {wedding} = UseWeddingContext();
+    const {wedding} = useWeddingContext();
     const {user: authUser} = useAuthContext();
 
     const handleSubmit = async () => {

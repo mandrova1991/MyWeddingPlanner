@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\TaskMassage;
-use App\Events\TaskMessageCreatedEvent;
+use App\Events\TaskMessage\TaskMessageCreatedEvent;
 use Illuminate\Console\Command;
 
 class TestCommand extends Command

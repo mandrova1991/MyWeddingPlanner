@@ -54,4 +54,9 @@ class Task extends Model
     {
         return $this->belongsToMany(User::class, 'task_assignees', 'task_id', 'user_id');
     }
+
+    public function messages(): HasMany
+    {
+        return $this->hasMany( TaskMessage::class, 'task_id');
+    }
 }
