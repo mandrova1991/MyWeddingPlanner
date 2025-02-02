@@ -36,7 +36,7 @@ function TaskMessageControls() {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         sendWhisper(false);
         const thempId = -Math.random()
         const newMessage: TaskMessageType = {
@@ -48,7 +48,7 @@ function TaskMessageControls() {
             created_at: new Date(),
         }
         TaskMessageListFunctions.addMessage(newMessage);
-        const createdMessage = taskMessageDatabase.actions.addTaskMessage(newMessage, task.states.task);
+        const createdMessage = await taskMessageDatabase.actions.addTaskMessage(newMessage, task.states.task);
         TaskMessageListFunctions.updateMessage(thempId, createdMessage);
 
     }
